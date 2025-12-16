@@ -35,7 +35,7 @@ export const LandingPageContent = ({
     <div className="min-h-screen bg-[#F7F7F4]">
       <DebugPing runId="run1" hasWhatIsSection={false} note="page.tsx current layout" />
       {/* Hero Section */}
-      <HeroSection videoSrc={heroVideoUrl} />
+      <HeroSection videoSrc={heroVideoUrl} overlayImageSrc={showcaseCtaImage} />
 
       {/* How Fridge Channel strengthens your C.O.R.E Section - styled like untillabs Assaying Organ Health */}
       <section id="why-creators-love-it" className="relative overflow-hidden py-16" style={{ backgroundColor: '#C8320B' }}>
