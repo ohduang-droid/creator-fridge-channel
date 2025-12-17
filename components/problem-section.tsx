@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { HorizontalSlideCards } from "@/components/ui/horizontal-slide-cards";
+import { useEffect, useRef, useState } from "react";
 
 interface PainCardProps {
   title: string;
@@ -10,6 +10,7 @@ interface PainCardProps {
   tagLabel: string;
   description: string[];
   delay?: number;
+  index: number;
 }
 
 // Helper function to render text with italic formatting
@@ -29,42 +30,80 @@ const PainCard: React.FC<PainCardProps> = ({
   tag, 
   tagLabel, 
   description,
-  delay = 0 
+  delay = 0,
+  index
 }) => {
-  return (
-    <div className="w-screen flex-shrink-0 flex items-center">
-      <div className="container mx-auto px-4 pt-14 pb-5 w-full">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col space-y-1.5">
-            <div>
-              <h3 className="text-3xl md:text-4xl font-medium text-foreground mb-1">
-                {title}
-              </h3>
-              <p className="text-lg md:text-xl font-medium text-foreground mb-2">
-                {subtitle}
-              </p>
-            </div>
-            
-            <div className="space-y-1.5">
-              {description.map((para, index) => (
-                <p 
-                  key={index}
-                  className="text-base text-foreground leading-relaxed text-pretty"
-                >
-                  {renderFormattedText(para)}
-                </p>
-              ))}
-            </div>
+  const [isVisible, setIsVisible] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
-            {/* Tag badge */}
-            <div className="pt-1.5 border-t border-border/50">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-semibold px-3 py-1.5 bg-muted/50 border border-border/50 rounded">
-                  {tag}
-                </span>
-                <span className="text-sm text-muted-foreground">{tagLabel}</span>
-              </div>
-            </div>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // 延迟显示，根据 index 设置不同的延迟
+            setTimeout(() => {
+              setIsVisible(true);
+            }, delay * 200); // 每个卡片延迟 200ms
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
+      }
+    };
+  }, [delay]);
+
+  return (
+    <div
+      ref={cardRef}
+      className={cn(
+        "transition-all duration-700 ease-out",
+        index >= 2 && "mt-4",
+        isVisible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-8"
+      )}
+    >
+      <div className="flex flex-col space-y-1.5 h-full">
+        <div>
+          <h3 className="text-3xl md:text-4xl font-medium text-foreground mb-1">
+            {title}
+          </h3>
+          <p className="text-lg md:text-xl font-medium text-foreground mb-2">
+            {subtitle}
+          </p>
+        </div>
+        
+        <div className="space-y-1.5">
+          {description.map((para, paraIndex) => (
+            <p 
+              key={paraIndex}
+              className="text-base text-foreground leading-relaxed text-pretty"
+            >
+              {renderFormattedText(para)}
+            </p>
+          ))}
+        </div>
+
+        {/* Tag badge */}
+        <div className="pt-1.5 border-t border-border/50 mt-auto">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-mono font-semibold px-3 py-1.5 bg-muted/50 border border-border/50 rounded">
+              {tag}
+            </span>
+            <span className="text-sm text-muted-foreground">{tagLabel}</span>
           </div>
         </div>
       </div>
@@ -123,7 +162,7 @@ export const ProblemSection = () => {
   ];
 
   return (
-    <section id="problem" className="container mx-auto px-4 pt-16 md:pt-24 pb-16 md:pb-24">
+    <section id="problem" className="container mx-auto px-4 pt-16 md:pt-24 pb-8 md:pb-12">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Section Title - styled like untillabs Our Approach */}
         <div className="text-center space-y-6 py-8 md:py-12">
@@ -140,41 +179,21 @@ export const ProblemSection = () => {
         </div>
       </div>
 
-      {/* Pain Points Cards - Horizontal slide effect */}
+      {/* Pain Points Cards - Grid 2 columns with staggered animation */}
       <div className="pt-8">
-        {/* First row: First 2 pain points */}
-        <div style={{ marginBottom: '20px' }}>
-          <HorizontalSlideCards>
-            {/* First 2 pain point cards */}
-            {painPoints.slice(0, 2).map((pain, index) => (
-              <PainCard
-                key={index}
-                title={pain.title}
-                subtitle={pain.subtitle}
-                tag={pain.tag}
-                tagLabel={pain.tagLabel}
-                description={pain.description}
-                delay={pain.delay}
-              />
-            ))}
-          </HorizontalSlideCards>
-        </div>
-
-        {/* Second row: Last 2 pain points */}
-        <div>
-          <HorizontalSlideCards>
-            {painPoints.slice(2, 4).map((pain, index) => (
-              <PainCard
-                key={index + 2}
-                title={pain.title}
-                subtitle={pain.subtitle}
-                tag={pain.tag}
-                tagLabel={pain.tagLabel}
-                description={pain.description}
-                delay={pain.delay}
-              />
-            ))}
-          </HorizontalSlideCards>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {painPoints.map((pain, index) => (
+            <PainCard
+              key={index}
+              title={pain.title}
+              subtitle={pain.subtitle}
+              tag={pain.tag}
+              tagLabel={pain.tagLabel}
+              description={pain.description}
+              delay={index}
+              index={index}
+            />
+          ))}
         </div>
       </div>
     </section>

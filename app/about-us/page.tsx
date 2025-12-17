@@ -10,14 +10,14 @@ export default function AboutUsPage() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-32 pb-20">
+      <section className="container mx-auto px-4 pt-32 pb-10">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <h1 className="text-4xl md:text-6xl font-bold text-balance">Story</h1>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="container mx-auto px-4 pb-40">
+      <section className="container mx-auto px-4 pb-20">
         <div className="max-w-4xl mx-auto space-y-16">
           
           {/* Why we built Fridge Channel */}

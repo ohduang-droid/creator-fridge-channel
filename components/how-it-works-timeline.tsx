@@ -72,7 +72,7 @@ export function HowItWorksTimeline() {
 
   return (
     <div className="w-full bg-muted/30 dark:bg-neutral-950">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-10">
         <h2 className="text-3xl md:text-5xl font-bold text-center text-balance mb-12">How it works</h2>
       </div>
       <Timeline data={data} />

@@ -12,7 +12,6 @@ import { ProblemSection } from "@/components/problem-section"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { HandWrittenTextButton } from "@/components/ui/hand-written-text-button"
 import { ShimmerButton } from "@/components/ui/shimmer-button"
-import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button"
 
 export default function HomePage() {
   return (
@@ -25,13 +24,13 @@ export default function HomePage() {
       <ProblemSection />
 
       {/* What is a Fridge Channel Section */}
-      <section id="what-is-fridge-channel" className="container mx-auto px-4 pt-80 pb-40 bg-muted/30">
+      <section id="what-is-fridge-channel" className="container mx-auto px-4 pt-40 pb-0 bg-muted/30">
         <div className="max-w-4xl mx-auto space-y-8">
           <h2 className="text-3xl md:text-5xl font-bold text-center text-balance">What is Fridge Channel?</h2>
           
           {/* Core Definition */}
           <div className="prose prose-lg max-w-none text-foreground space-y-6">
-            <div className="text-lg leading-relaxed min-h-[300px] py-8">
+            <div className="text-lg leading-relaxed py-2">
               <TextGradientScroll
                 text="Fridge Channel is a high-traffic, offline channel For creator your paid readers, built on their fridge door. Your paying subscribers place a customized (usually your Newsletter logo) AI-powered NFC magnet on the fridge and use it as a one-tap shortcut into your content in the Fridge Channel app — straight to you, with no feeds and no algorithms in between."
                 type="letter"
@@ -42,7 +41,7 @@ export default function HomePage() {
           </div>
 
           {/* Three Key Points */}
-          <div className="max-w-3xl mx-auto space-y-6 pt-4">
+          <div className="max-w-3xl mx-auto space-y-6 pt-0.5">
             <div className="flex gap-4 items-start">
               <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
               <div className="flex-1 text-base md:text-lg leading-relaxed">
@@ -123,7 +122,7 @@ export default function HomePage() {
         ></div>
         
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '700px', paddingBottom: '700px' }}>
+        <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '87.5px', paddingBottom: '87.5px' }}>
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center space-y-4">
               <h2 className="text-3xl md:text-5xl font-bold text-balance text-white">How Fridge Channel strengthens your C.O.R.E</h2>
@@ -140,7 +139,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Subscribers Love It Section */}
-      <section id="who-its-for" className="container mx-auto px-4 pt-40 pb-40">
+      <section id="who-its-for" className="container mx-auto px-4 pt-20 pb-10">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-3xl md:text-5xl font-bold text-balance">Why subscribers love it</h2>
@@ -258,7 +257,7 @@ export default function HomePage() {
         ></div>
         
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '700px', paddingBottom: '700px' }}>
+        <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '87.5px', paddingBottom: '87.5px' }}>
           <div className="max-w-5xl mx-auto space-y-16">
             <div className="space-y-12">
               <h2 className="text-3xl md:text-5xl font-bold text-center text-balance text-white">Pricing</h2>
@@ -353,10 +352,6 @@ export default function HomePage() {
                         Turn on Fridge Channel Magnet
                       </span>
                     </ShimmerButton>
-                    <InteractiveHoverButton 
-                      text="Talk to us about pricing & rollout"
-                      className="w-full sm:w-auto min-w-[280px]"
-                    />
                   </div>
                 </div>
               </div>
@@ -366,7 +361,7 @@ export default function HomePage() {
       </section>
 
       {/* Mini FAQ Section */}
-      <section id="faq" className="container mx-auto px-4 pt-20 pb-20 border-t border-border">
+      <section id="faq" className="container mx-auto px-4 pt-10 pb-10 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="grid gap-8 md:grid-cols-5 md:gap-12">
             <div className="md:col-span-2">
