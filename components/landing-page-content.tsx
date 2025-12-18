@@ -138,7 +138,7 @@ export const LandingPageContent = ({
       </section>
 
       {/* Mini FAQ Section */}
-      <section id="faq" className="container mx-auto px-4 pt-10 pb-10 border-t border-border">
+      <section id="faq" className="container mx-auto px-4 pt-10 pb-10">
         <div className="max-w-5xl mx-auto">
           <div className="grid gap-8 md:grid-cols-5 md:gap-12">
             <div className="md:col-span-2">
