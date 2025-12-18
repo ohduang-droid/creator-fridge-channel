@@ -58,33 +58,7 @@ export function HowItWorksTimeline({ coverImageSrc }: HowItWorksTimelineProps = 
         <h2 className="text-3xl md:text-5xl font-bold text-center text-balance mb-12">How it works</h2>
       </div>
       <Timeline data={data} />
-      <div className="w-full pb-10 pt-6">
-        <div className="relative w-full aspect-video overflow-hidden">
-          <Image
-            src={coverImageSrc ?? "/science-hero-bg.webp"}
-            alt="Background"
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority={false}
-          />
-          <div className="absolute inset-0 bg-black/20" />
-          {/* Button on top of background */}
-          <div className="relative z-10 flex items-end justify-center h-full pb-6">
-            <Link href="/booking">
-              <ShimmerButton 
-                className="shadow-2xl transition-transform duration-300 hover:scale-110"
-                background="linear-gradient(120deg, #9f1026, #f25f6c)"
-                shimmerColor="#ffe5e9"
-              >
-                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
-                  Start your Fridge Channel pilot
-                </span>
-              </ShimmerButton>
-            </Link>
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 }

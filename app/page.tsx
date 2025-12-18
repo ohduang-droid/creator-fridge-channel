@@ -84,12 +84,12 @@ export default function HomePage() {
       </section>
 
       {/* Pricing Section - styled like C.O.R.E Section */}
-      <section id="pricing" className="relative min-h-[200vh] overflow-hidden" style={{ backgroundColor: '#8D0104' }}>
+      <section id="pricing" className="relative overflow-hidden" style={{ backgroundColor: '#8D0104' }}>
         {/* Smooth gradient transitions at boundaries with curved blend */}
         <div
           className="absolute inset-x-0 top-0 z-0"
           style={{
-            height: '600px',
+            height: '280px',
             background: `linear-gradient(to bottom, 
               #F7F7F4 0%, 
               rgba(247, 247, 244, 0.95) 15%,
@@ -108,7 +108,7 @@ export default function HomePage() {
         <div
           className="absolute inset-x-0 bottom-0 z-0"
           style={{
-            height: '600px',
+            height: '280px',
             background: `linear-gradient(to top, 
               #F7F7F4 0%, 
               rgba(247, 247, 244, 0.95) 15%,
@@ -126,7 +126,7 @@ export default function HomePage() {
         ></div>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '350px', paddingBottom: '350px' }}>
+        <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center py-24">
           <div className="max-w-5xl mx-auto space-y-16">
             {/* Header */}
             <div className="space-y-6 text-center">

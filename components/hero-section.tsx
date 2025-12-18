@@ -9,7 +9,7 @@ import { Volume2, VolumeX } from "lucide-react";
 const OVERLAY_DURATION = 2000;
 const HERO_INTRO_VIDEO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part1-1.mp4";
 const HERO_MAIN_VIDEO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part3-1.mp4";
-const HERO_OVERLAY_AUDIO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part2-1.m4a";
+const HERO_OVERLAY_AUDIO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part3-1.m4a";
 
 interface HeroSectionProps {
   videoSrc?: string | null;
@@ -166,50 +166,70 @@ export const HeroSection = ({
   };
 
   const overlayVisible = hasOverlayImage && overlayImageSrc;
+  useEffect(() => {
+    const head = document.head;
+    if (!head) return;
+
+    const preloadMedia = (href: string, asType: "video" | "audio") => {
+      if (!href) return;
+      const existing = head.querySelector<HTMLLinkElement>(`link[rel="preload"][as="${asType}"][href="${href}"]`);
+      if (existing) return;
+
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = asType;
+      link.href = href;
+      head.appendChild(link);
+      return link;
+    };
+
+    const videoLink = preloadMedia(videoSources.videoB, "video");
+    const audioLink = preloadMedia(HERO_OVERLAY_AUDIO, "audio");
+
+    return () => {
+      if (videoLink) head.removeChild(videoLink);
+      if (audioLink) head.removeChild(audioLink);
+    };
+  }, [videoSources.videoB]);
 
   return (
     <>
-    <section id="home" className="relative pt-16 min-h-screen overflow-hidden bg-white pb-0">
-      {/* Background video */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-        <div className="relative flex h-full w-full items-center justify-center">
-          <video
-            ref={videoRef}
-            className="h-full w-full object-contain"
-            src={currentVideoSrc}
-            muted={isMuted}
-            playsInline
-            preload="auto"
-            autoPlay
-          />
-          {overlayVisible && (
-            <div
-              className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out"
-              style={{ opacity: isOverlayPhase ? 1 : 0 }}
-            >
-              <div className="relative h-full w-full">
-                <div className={`absolute inset-0 ${isOverlayPhase ? "hero-overlay-pan" : ""}`}>
-                  <Image
-                    src={overlayImageSrc}
-                    alt="Hero overlay"
-                    fill
-                    className="object-contain scale-105"
-                    priority
-                    sizes="100vw"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-black/30" />
-                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white font-semibold tracking-[0.3em] uppercase text-sm md:text-base drop-shadow-lg md:left-auto md:right-12 md:translate-x-0">
-                  Channel Owned
-                </div>
-              </div>
+    <section id="home" className="relative pt-16 min-h-screen bg-[#F7F7F4] pb-0">
+      {/* Full-bleed video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          ref={videoRef}
+          className="h-full w-full object-cover"
+          src={currentVideoSrc}
+          muted={isMuted}
+          playsInline
+          preload="auto"
+          autoPlay
+        />
+        {overlayVisible && (
+          <div
+            className="absolute inset-0 transition-opacity duration-500 ease-in-out"
+            style={{ opacity: isOverlayPhase ? 1 : 0 }}
+          >
+            <div className={`absolute inset-0 ${isOverlayPhase ? "hero-overlay-pan" : ""}`}>
+              <Image
+                src={overlayImageSrc}
+                alt="Hero overlay"
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
             </div>
-          )}
-        </div>
-        <div className="absolute inset-0 bg-white/40 pointer-events-none" />
+            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white font-semibold tracking-[0.3em] uppercase text-sm md:text-base drop-shadow-lg md:left-auto md:right-12 md:translate-x-0">
+              Channel Owned
+            </div>
+          </div>
+        )}
       </div>
+
       <audio ref={overlayAudioRef} src={HERO_OVERLAY_AUDIO} preload="auto" className="hidden" />
-    </div>
 
       <div className="absolute bottom-6 right-6 z-20">
         <button

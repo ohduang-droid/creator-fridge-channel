@@ -1,7 +1,10 @@
+import Link from "next/link"
+import Image from "next/image"
 import { HeroSection } from "@/components/hero-section"
 import { HowItWorksTimeline } from "@/components/how-it-works-timeline-official"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll"
+import { ShimmerButton } from "@/components/ui/shimmer-button"
 
 interface LandingPageContentProps {
   heroVideoUrl?: string | null
@@ -19,6 +22,7 @@ export const LandingPageContent = ({
   const heroOverlayImage = coverImageUrl ?? null
   const isCreatorPage = Boolean(creatorName)
   const faqCoverImage = isCreatorPage && heroOverlayImage ? heroOverlayImage : null
+  const timelineCtaCoverImage = faqCoverImage ?? "/science-hero-bg.webp"
 
   return (
     <div className="min-h-screen bg-[#F7F7F4]">
@@ -99,6 +103,34 @@ export const LandingPageContent = ({
       {/* How it Works Section */}
       <section id="how-it-works">
         <HowItWorksTimeline coverImageSrc={faqCoverImage} />
+        {isCreatorPage && (
+          <div className="w-full pb-10 pt-6">
+            <div className="relative w-full aspect-video overflow-hidden">
+              <Image
+                src={timelineCtaCoverImage}
+                alt="Background"
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority={false}
+              />
+              <div className="absolute inset-0 bg-black/20" />
+              <div className="relative z-10 flex items-end justify-center h-full pb-6">
+                <Link href="/booking">
+                  <ShimmerButton
+                    className="shadow-2xl transition-transform duration-300 hover:scale-110"
+                    background="linear-gradient(120deg, #9f1026, #f25f6c)"
+                    shimmerColor="#ffe5e9"
+                  >
+                    <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
+                      Start your Fridge Channel pilot
+                    </span>
+                  </ShimmerButton>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Mini FAQ Section */}
