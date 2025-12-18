@@ -12,13 +12,13 @@ const navItems = [
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Our Story", href: "/about-us" },
-  { label: "Creator Shortlist", href: "/creator-wanted" },
+  { label: "Creator Shortlist", href: "/creator-shortlist" },
 ];
 
 export function Navigation() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  const isCreatorShortlistPage = pathname === "/creator-wanted";
+  const isCreatorShortlistPage = pathname === "/creator-shortlist";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOnRedBackground, setIsOnRedBackground] = useState(false);
   const [isOnHeroSection, setIsOnHeroSection] = useState(true);
