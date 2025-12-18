@@ -12,6 +12,7 @@ const navItems = [
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Our Story", href: "/about-us" },
+  { label: "Creator Shortlist", href: "/creator-wanted" },
 ];
 
 export function Navigation() {
@@ -129,7 +130,7 @@ export function Navigation() {
         </Link>
 
         {/* Navigation Links - Center */}
-        <div className="hidden lg:flex items-center gap-4 xl:gap-8 flex-1 justify-center">
+        <div className="flex items-center gap-4 xl:gap-8 flex-1 justify-center">
           {navItems.map((item) => {
             // If not on home page and href is an anchor link, prepend "/" to make it absolute
             const href = !isHomePage && item.href.startsWith("#") 
