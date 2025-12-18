@@ -9,7 +9,7 @@ import { Volume2, VolumeX } from "lucide-react";
 const OVERLAY_DURATION = 2000;
 const HERO_INTRO_VIDEO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part1-1.mp4";
 const HERO_MAIN_VIDEO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part3-1.mp4";
-const HERO_OVERLAY_AUDIO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part3-1.m4a";
+const HERO_OVERLAY_AUDIO = "https://amzn-s3-fc-bucket.s3.sa-east-1.amazonaws.com/videos/video-part2-1.m4a";
 
 interface HeroSectionProps {
   videoSrc?: string | null;
@@ -26,15 +26,15 @@ export const HeroSection = ({
   enableOverlayTransition = true,
   scrollAfterFirstLoop = false,
 }: HeroSectionProps) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const introVideoRef = useRef<HTMLVideoElement>(null);
+  const mainVideoRef = useRef<HTMLVideoElement>(null);
   const overlayTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [isOverlayPhase, setIsOverlayPhase] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const isMutedRef = useRef(true);
   const resolvedVideo = videoSrc ?? HERO_MAIN_VIDEO;
   const shouldUseOverlayTransition = enableOverlayTransition && Boolean(overlayImageSrc);
-  const [currentVideo, setCurrentVideo] = useState<"videoA" | "videoB">("videoA");
-  const currentVideoRef = useRef<"videoA" | "videoB">("videoA");
+  const [activeVideo, setActiveVideo] = useState<"videoA" | "videoB">("videoA");
   const overlayAudioRef = useRef<HTMLAudioElement>(null);
   const afterHeroRef = useRef<HTMLDivElement | null>(null);
   const hasScrolledAfterFirstLoopRef = useRef(false);
@@ -45,8 +45,59 @@ export const HeroSection = ({
     }),
     [resolvedVideo]
   );
-  const currentVideoSrc = currentVideo === "videoA" ? videoSources.videoA : videoSources.videoB;
   const scrollAfterFirstLoopRef = useRef(scrollAfterFirstLoop);
+
+  const applyMuteToVideos = useCallback((nextMuted: boolean) => {
+    [introVideoRef.current, mainVideoRef.current].forEach((video) => {
+      if (!video) return;
+      video.muted = nextMuted;
+      video.defaultMuted = nextMuted;
+    });
+  }, []);
+
+  const playVideoElement = useCallback((video: HTMLVideoElement, onReady?: () => void) => {
+    const attemptPlay = () => {
+      const playPromise = video.play();
+      if (playPromise) {
+        playPromise.catch(() => {});
+      }
+      onReady?.();
+    };
+
+    video.currentTime = 0;
+    video.muted = isMutedRef.current;
+    video.defaultMuted = isMutedRef.current;
+
+    if (video.readyState >= 2 && video.currentSrc) {
+      attemptPlay();
+    } else {
+      const handleLoadedData = () => {
+        video.removeEventListener("loadeddata", handleLoadedData);
+        attemptPlay();
+      };
+      video.addEventListener("loadeddata", handleLoadedData);
+      video.load();
+    }
+  }, []);
+
+  const switchToVideo = useCallback(
+    (next: "videoA" | "videoB") => {
+      const targetRef = next === "videoA" ? introVideoRef : mainVideoRef;
+      const otherRef = next === "videoA" ? mainVideoRef : introVideoRef;
+      const target = targetRef.current;
+      if (!target) return;
+
+      if (otherRef.current) {
+        otherRef.current.pause();
+        otherRef.current.currentTime = 0;
+      }
+
+      playVideoElement(target, () => {
+        setActiveVideo(next);
+      });
+    },
+    [playVideoElement]
+  );
 
   const clearOverlayTimer = useCallback(() => {
     if (overlayTimerRef.current) {
@@ -70,15 +121,10 @@ export const HeroSection = ({
     audio.play().catch(() => {});
   }, []);
 
-  const updateVideo = useCallback((next: "videoA" | "videoB") => {
-    currentVideoRef.current = next;
-    setCurrentVideo(next);
-  }, []);
-
   const startOverlayPhase = useCallback(() => {
     clearOverlayTimer();
     if (!shouldUseOverlayTransition) {
-      updateVideo("videoB");
+      switchToVideo("videoB");
       return;
     }
     setIsOverlayPhase(true);
@@ -86,9 +132,9 @@ export const HeroSection = ({
     overlayTimerRef.current = setTimeout(() => {
       setIsOverlayPhase(false);
       stopOverlayAudio();
-      updateVideo("videoB");
+      switchToVideo("videoB");
     }, OVERLAY_DURATION);
-  }, [clearOverlayTimer, shouldUseOverlayTransition, updateVideo, playOverlayAudio, stopOverlayAudio]);
+  }, [clearOverlayTimer, shouldUseOverlayTransition, switchToVideo, playOverlayAudio, stopOverlayAudio]);
 
   useEffect(() => {
     return () => {
@@ -103,85 +149,58 @@ export const HeroSection = ({
   }, [scrollAfterFirstLoop, resolvedVideo]);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !currentVideoSrc) return;
+    const introVideo = introVideoRef.current;
+    const mainVideo = mainVideoRef.current;
+    if (!introVideo || !mainVideo) return;
 
-    const handleCanPlay = () => {
-      video.currentTime = 0;
-      video.muted = isMutedRef.current;
-      video.defaultMuted = isMutedRef.current;
-      video.play().catch(() => {});
+    const handleIntroEnded = () => {
+      startOverlayPhase();
     };
 
-    video.pause();
-    video.load();
-
-    if (video.readyState >= 2) {
-      handleCanPlay();
-    } else {
-      video.addEventListener("loadeddata", handleCanPlay, { once: true });
-    }
-
-    return () => {
-      video.removeEventListener("loadeddata", handleCanPlay);
-    };
-  }, [currentVideoSrc]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleEnded = () => {
-      if (currentVideoRef.current === "videoA") {
-        startOverlayPhase();
-      } else {
-        clearOverlayTimer();
-        setIsOverlayPhase(false);
-        stopOverlayAudio();
-        if (scrollAfterFirstLoopRef.current && !hasScrolledAfterFirstLoopRef.current) {
-          hasScrolledAfterFirstLoopRef.current = true;
-          const target = afterHeroRef.current;
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-          } else if (typeof window !== "undefined") {
-            window.scrollBy({ top: window.innerHeight * 0.25, behavior: "smooth" });
-          }
+    const handleMainEnded = () => {
+      clearOverlayTimer();
+      setIsOverlayPhase(false);
+      stopOverlayAudio();
+      if (scrollAfterFirstLoopRef.current && !hasScrolledAfterFirstLoopRef.current) {
+        hasScrolledAfterFirstLoopRef.current = true;
+        const target = afterHeroRef.current;
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else if (typeof window !== "undefined") {
+          window.scrollBy({ top: window.innerHeight * 0.25, behavior: "smooth" });
         }
-        updateVideo("videoA");
       }
+      switchToVideo("videoA");
     };
 
-    video.addEventListener("ended", handleEnded);
+    introVideo.addEventListener("ended", handleIntroEnded);
+    mainVideo.addEventListener("ended", handleMainEnded);
     return () => {
-      video.removeEventListener("ended", handleEnded);
+      introVideo.removeEventListener("ended", handleIntroEnded);
+      mainVideo.removeEventListener("ended", handleMainEnded);
     };
-  }, [startOverlayPhase, clearOverlayTimer, stopOverlayAudio, updateVideo]);
+  }, [startOverlayPhase, clearOverlayTimer, stopOverlayAudio, switchToVideo]);
 
   useEffect(() => {
     clearOverlayTimer();
     setIsOverlayPhase(false);
     stopOverlayAudio();
-    updateVideo("videoA");
-  }, [resolvedVideo, clearOverlayTimer, updateVideo, stopOverlayAudio]);
+    switchToVideo("videoA");
+  }, [resolvedVideo, clearOverlayTimer, switchToVideo, stopOverlayAudio]);
 
   const handleToggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
     const nextMuted = !isMuted;
     setIsMuted(nextMuted);
     isMutedRef.current = nextMuted;
+    applyMuteToVideos(nextMuted);
 
     if (!nextMuted) {
-      video.muted = false;
-      video.defaultMuted = false;
-      video.play().catch(() => {});
+      const activeRef = activeVideo === "videoA" ? introVideoRef : mainVideoRef;
+      activeRef.current?.play().catch(() => {});
       if (isOverlayPhase) {
         playOverlayAudio();
       }
     } else {
-      video.muted = true;
-      video.defaultMuted = true;
       stopOverlayAudio();
     }
   };
@@ -221,13 +240,20 @@ export const HeroSection = ({
       {/* Full-bleed video constrained to 16:9 */}
       <div className="relative w-full aspect-video overflow-hidden bg-black">
         <video
-          ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover"
-          src={currentVideoSrc}
+          ref={introVideoRef}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${activeVideo === "videoA" ? "opacity-100" : "opacity-0"}`}
+          src={videoSources.videoA}
           muted={isMuted}
           playsInline
           preload="auto"
-          autoPlay
+        />
+        <video
+          ref={mainVideoRef}
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${activeVideo === "videoB" ? "opacity-100" : "opacity-0"}`}
+          src={videoSources.videoB}
+          muted={isMuted}
+          playsInline
+          preload="auto"
         />
         {overlayVisible && (
           <div

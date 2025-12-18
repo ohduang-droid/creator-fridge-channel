@@ -66,7 +66,11 @@ export default async function CreatorShortlistPage({
               </p>
               {/* CTA at bottom of top hero-like area */}
               <div className="pt-4 flex items-center justify-center">
-              <Link href="/booking">
+              <Link
+                href="https://calendly.com/billy-fridgechannels/30min"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <ShimmerButton
                     className="shadow-2xl transition-transform duration-300 hover:scale-110 w-full sm:w-auto px-8"
                   background="rgba(0, 0, 0, 1)"
