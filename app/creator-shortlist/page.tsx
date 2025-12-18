@@ -5,123 +5,51 @@ import Link from 'next/link'
 import { Navigation } from '@/components/navigation'
 import { TaskList, type Task } from '@/components/ui/task-list'
 import { ShimmerButton } from '@/components/ui/shimmer-button'
+import { supabaseServerClient } from '@/lib/supabase-client'
 
-const creatorTasks: Task[] = [
-  {
-    id: 1,
-    logo: '📰',
-    creatorName: 'Heather Cox Richardson',
-    newsletterName: 'Letters from an American',
-    websiteUrl: 'https://newsletter.example.com',
-  },
-  {
-    id: 2,
-    logo: '🎙️',
-    creatorName: 'Podcaster',
-    newsletterName: 'Your podcast',
-    websiteUrl: 'https://podcast.example.com',
-  },
-  {
-    id: 3,
-    logo: '📺',
-    creatorName: 'Video Storyteller',
-    newsletterName: 'Your video channel',
-    websiteUrl: 'https://videochannel.example.com',
-  },
-  {
-    id: 4,
-    logo: '📚',
-    creatorName: 'Author / Essayist',
-    newsletterName: 'Your longform work',
-    websiteUrl: 'https://author.example.com',
-  },
-  {
-    id: 5,
-    logo: '🧪',
-    creatorName: 'Niche Educator',
-    newsletterName: 'Your education hub',
-    websiteUrl: 'https://education.example.com',
-  },
-  {
-    id: 6,
-    logo: '🧠',
-    creatorName: 'Curator / Analyst',
-    newsletterName: 'Your curated briefings',
-    websiteUrl: 'https://curation.example.com',
-  },
-  {
-    id: 7,
-    logo: '🗞️',
-    creatorName: 'Global Affairs Writer',
-    newsletterName: 'World Brief',
-    websiteUrl: 'https://worldbrief.example.com',
-  },
-  {
-    id: 8,
-    logo: '💡',
-    creatorName: 'Idea Curator',
-    newsletterName: 'Signal & Noise',
-    websiteUrl: 'https://signalnoise.example.com',
-  },
-  {
-    id: 9,
-    logo: '🏠',
-    creatorName: 'Family Culture Creator',
-    newsletterName: 'Household Rituals',
-    websiteUrl: 'https://householdrituals.example.com',
-  },
-  {
-    id: 10,
-    logo: '🧬',
-    creatorName: 'Science Storyteller',
-    newsletterName: 'Everyday Lab Notes',
-    websiteUrl: 'https://labnotes.example.com',
-  },
-  {
-    id: 11,
-    logo: '📈',
-    creatorName: 'Market Analyst',
-    newsletterName: 'Household Macro',
-    websiteUrl: 'https://householdmacro.example.com',
-  },
-  {
-    id: 12,
-    logo: '🎨',
-    creatorName: 'Visual Essayist',
-    newsletterName: 'Panels & Pages',
-    websiteUrl: 'https://panelsandpages.example.com',
-  },
-  {
-    id: 13,
-    logo: '🍳',
-    creatorName: 'Food & Culture Writer',
-    newsletterName: 'Kitchen Table Dispatch',
-    websiteUrl: 'https://kitchentable.example.com',
-  },
-  {
-    id: 14,
-    logo: '🧭',
-    creatorName: 'Career Guide',
-    newsletterName: 'Work in Motion',
-    websiteUrl: 'https://workinmotion.example.com',
-  },
-  {
-    id: 15,
-    logo: '🧩',
-    creatorName: 'Systems Thinker',
-    newsletterName: 'Household Patterns',
-    websiteUrl: 'https://householdpatterns.example.com',
-  },
-  {
-    id: 16,
-    logo: '🌱',
-    creatorName: 'Climate Communicator',
-    newsletterName: 'Everyday Climate',
-    websiteUrl: 'https://everydayclimate.example.com',
-  },
-]
+type CreatorRow = {
+  creator_id: string
+  creator_name: string
+  newsletter_name: string | null
+  website_url: string | null
+}
 
-export default function CreatorWantedPage() {
+const mapCreatorToTask = (creator: CreatorRow): Task => {
+  const logoSource = creator.newsletter_name || creator.creator_name
+  const logoInitial = logoSource.charAt(0).toUpperCase() || '?'
+
+  return {
+    id: creator.creator_id,
+    logo: logoInitial,
+    creatorName: creator.creator_name,
+    newsletterName: creator.newsletter_name || '—',
+    websiteUrl: creator.website_url || '#',
+  }
+}
+
+const loadCreators = async (): Promise<Task[]> => {
+  const supabase = supabaseServerClient()
+
+  if (!supabase) {
+    return []
+  }
+
+  const { data, error } = await supabase
+    .from('creator')
+    .select('creator_id, creator_name, newsletter_name, website_url')
+    .order('created_at', { ascending: true })
+
+  if (error) {
+    console.error('Error loading creators from Supabase', error)
+    return []
+  }
+
+  return (data as CreatorRow[]).map(mapCreatorToTask)
+}
+
+export default async function CreatorShortlistPage() {
+  const creatorTasks = await loadCreators()
+
   return (
     <div className="min-h-screen bg-[#F7F7F4]">
       <Navigation />
