@@ -64,14 +64,14 @@ export const TaskList: React.FC<TaskListProps> = ({
       <h2 className="text-lg font-semibold mb-4">{title}</h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm text-left">
-          <thead>
+          {/* <thead>
             <tr className="border-b border-border">
               <th className="p-4 text-muted-foreground font-medium w-16"></th>
               <th className="p-4 text-muted-foreground font-medium">Creator</th>
               <th className="p-4 text-muted-foreground font-medium">Newsletter</th>
               <th className="p-4 text-center text-muted-foreground font-medium w-16">Link</th>
             </tr>
-          </thead>
+          </thead> */}
           <motion.tbody
             key={tasksKey}
             variants={containerVariants}
