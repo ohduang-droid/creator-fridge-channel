@@ -17,11 +17,17 @@ export const LandingPageContent = ({
   creatorName,
 }: LandingPageContentProps) => {
   const heroOverlayImage = coverImageUrl ?? null
+  const isCreatorPage = Boolean(creatorName)
+  const faqCoverImage = isCreatorPage && heroOverlayImage ? heroOverlayImage : null
 
   return (
     <div className="min-h-screen bg-[#F7F7F4]">
       {/* Hero Section */}
-      <HeroSection videoSrc={heroVideoUrl} overlayImageSrc={heroOverlayImage} />
+      <HeroSection
+        videoSrc={heroVideoUrl}
+        overlayImageSrc={heroOverlayImage}
+        showHeroOverlayCta={!isCreatorPage}
+      />
 
       {/* What is a Fridge Channel Section */}
       <section id="what-is-fridge-channel" className="relative container mx-auto px-4 pt-40 pb-20 bg-muted/30">
@@ -92,7 +98,7 @@ export const LandingPageContent = ({
 
       {/* How it Works Section */}
       <section id="how-it-works">
-        <HowItWorksTimeline />
+        <HowItWorksTimeline coverImageSrc={faqCoverImage} />
       </section>
 
       {/* Mini FAQ Section */}

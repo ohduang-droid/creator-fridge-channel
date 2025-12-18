@@ -5,7 +5,11 @@ import Image from "next/image";
 import { Timeline } from "@/components/ui/timeline";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 
-export function HowItWorksTimeline() {
+interface HowItWorksTimelineProps {
+  coverImageSrc?: string | null;
+}
+
+export function HowItWorksTimeline({ coverImageSrc }: HowItWorksTimelineProps = {}) {
   const data = [
     {
       title: "1. Connect your content",
@@ -56,18 +60,15 @@ export function HowItWorksTimeline() {
       <Timeline data={data} />
       <div className="w-full pb-10 pt-6">
         <div className="relative w-full aspect-video overflow-hidden">
-          {/* Background image with 16:9 aspect ratio */}
-          <div className="absolute inset-0">
-            <Image
-              src="/science-hero-bg.webp"
-              alt="Background"
-              fill
-              className="object-cover"
-              sizes="100vw"
-            />
-            {/* Overlay for better button visibility */}
-            <div className="absolute inset-0 bg-black/20"></div>
-          </div>
+          <Image
+            src={coverImageSrc ?? "/science-hero-bg.webp"}
+            alt="Background"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority={false}
+          />
+          <div className="absolute inset-0 bg-black/20" />
           {/* Button on top of background */}
           <div className="relative z-10 flex items-end justify-center h-full pb-6">
             <Link href="/booking">
@@ -87,4 +88,3 @@ export function HowItWorksTimeline() {
     </div>
   );
 }
-
