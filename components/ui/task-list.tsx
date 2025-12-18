@@ -51,39 +51,6 @@ export const TaskList: React.FC<TaskListProps> = ({
       <h2 className="text-lg font-semibold mb-4">{title}</h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm text-left">
-          <motion.thead
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <tr className="border-b border-border">
-              <th
-                scope="col"
-                className="p-4 font-medium text-muted-foreground"
-              >
-                Newsletter logo
-              </th>
-              <th
-                scope="col"
-                className="p-4 font-medium text-muted-foreground"
-              >
-                Creator name
-              </th>
-              <th
-                scope="col"
-                className="p-4 font-medium text-muted-foreground"
-              >
-                Newsletter name
-              </th>
-              <th
-                scope="col"
-                className="p-4 font-medium text-muted-foreground text-right"
-              >
-                Website link
-              </th>
-            </tr>
-          </motion.thead>
-
           <motion.tbody
             variants={containerVariants}
             initial="hidden"
