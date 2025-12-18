@@ -124,36 +124,52 @@ export default function CreatorWantedPage() {
       <Navigation />
 
       <main>
-        <section className="container mx-auto px-4 pt-32 pb-12">
-          <div className="max-w-3xl space-y-6">
-            <h1 className="text-3xl md:text-5xl font-bold text-foreground">
-              Creator Shortlist
-            </h1>
-            <p className="text-lg md:text-xl text-foreground space-y-4">
-              <span>
-                We&apos;re building Fridge Channel with a small set of creators we{' '}
-                <em>really</em> want to work with.
-              </span>
-              <br />
-              <br />
-              <span className="font-semibold">❓ Know someone on this list?</span>
-              <br />
-              <span>
-                Make an intro. If we end up working together, we&apos;ll send you an{' '}
-                <span className="font-semibold">FC Gift</span> as a thank-you.
-              </span>
-              <br />
-              <br />
-              <span className="font-semibold">
-                ❓ Are you a creator and your name is on this list?
-              </span>
-              <br />
-              <span>
-                Reach out — you&apos;re qualified for a{' '}
-                <span className="font-semibold">Big FC Gift</span> (and we&apos;ll fast-track your
-                setup).
-              </span>
-            </p>
+        <section className="relative pt-32 pb-16 overflow-hidden">
+          {/* Background image and gradient same as hero */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: 'url(/science-hero-bg.webp)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              filter: 'blur(20px) brightness(1.05)',
+              transform: 'scale(1.05)',
+            }}
+          />
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent/30 via-[#F7F7F4]/20 to-[#F7F7F4]" />
+
+          <div className="relative z-10 container mx-auto px-4">
+            <div className="max-w-3xl space-y-6 pt-12 pb-4">
+              <h1 className="text-3xl md:text-5xl font-bold text-white">
+                Creator Shortlist
+              </h1>
+              <p className="text-lg md:text-xl text-white/95 space-y-4">
+                <span>
+                  We&apos;re building Fridge Channel with a small set of creators we{' '}
+                  <em>really</em> want to work with.
+                </span>
+                <br />
+                <br />
+                <span className="font-semibold">❓ Know someone on this list?</span>
+                <br />
+                <span>
+                  Make an intro. If we end up working together, we&apos;ll send you an{' '}
+                  <span className="font-semibold">FC Gift</span> as a thank-you.
+                </span>
+                <br />
+                <br />
+                <span className="font-semibold">
+                  ❓ Are you a creator and your name is on this list?
+                </span>
+                <br />
+                <span>
+                  Reach out — you&apos;re qualified for a{' '}
+                  <span className="font-semibold">Big FC Gift</span> (and we&apos;ll fast-track your
+                  setup).
+                </span>
+              </p>
+            </div>
           </div>
         </section>
 

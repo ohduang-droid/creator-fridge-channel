@@ -18,6 +18,7 @@ const navItems = [
 export function Navigation() {
   const pathname = usePathname();
   const isHomePage = pathname === "/";
+  const isCreatorShortlistPage = pathname === "/creator-wanted";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOnRedBackground, setIsOnRedBackground] = useState(false);
   const [isOnHeroSection, setIsOnHeroSection] = useState(true);
@@ -74,8 +75,9 @@ export function Navigation() {
 
   // Determine styles: 
   // - Hero or Red background = glass effect
+  // - Creator Shortlist page also uses glass mode for consistency
   // - Light background = white background with gradient
-  const isGlassMode = isOnHeroSection || isOnRedBackground;
+  const isGlassMode = isCreatorShortlistPage || isOnHeroSection || isOnRedBackground;
   const isLightMode = !isGlassMode;
 
   return (

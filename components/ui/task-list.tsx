@@ -109,13 +109,13 @@ export const TaskList: React.FC<TaskListProps> = ({
                   <td className="p-4 text-muted-foreground align-middle">
                     {task.newsletterName}
                   </td>
-                  <td className="p-4 text-right align-middle">
+                  <td className="p-4 text-center align-middle">
                     <a
                       href={task.websiteUrl}
                       target="_blank"
                       rel="noreferrer"
                       className={cn(
-                        "inline-flex items-center justify-end text-primary hover:text-primary/80"
+                        "inline-flex items-center justify-center text-primary hover:text-primary/80"
                       )}
                       aria-label="Open website"
                     >
