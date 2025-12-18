@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 export interface Task {
   id: number | string
   logo: React.ReactNode
+  logoImageUrl?: string | null
   creatorName: string
   newsletterName: string
   websiteUrl: string
@@ -46,11 +47,28 @@ export const TaskList: React.FC<TaskListProps> = ({
   title = "Task List",
   tasks,
 }) => {
+  if (tasks.length === 0) {
+    return (
+      <div className="w-full max-w-4xl mx-auto rounded-lg border border-border bg-card p-6 text-card-foreground shadow-sm">
+        <h2 className="text-lg font-semibold mb-4">{title}</h2>
+        <p className="text-muted-foreground text-sm">No items to display.</p>
+      </div>
+    )
+  }
+
   return (
     <div className="w-full max-w-4xl mx-auto rounded-lg border border-border bg-card p-6 text-card-foreground shadow-sm">
       <h2 className="text-lg font-semibold mb-4">{title}</h2>
       <div className="overflow-x-auto">
         <table className="w-full text-sm text-left">
+          <thead>
+            <tr className="border-b border-border">
+              <th className="p-4 text-muted-foreground font-medium w-16"></th>
+              <th className="p-4 text-muted-foreground font-medium">Creator</th>
+              <th className="p-4 text-muted-foreground font-medium">Newsletter</th>
+              <th className="p-4 text-center text-muted-foreground font-medium w-16">Link</th>
+            </tr>
+          </thead>
           <motion.tbody
             variants={containerVariants}
             initial="hidden"
@@ -65,9 +83,17 @@ export const TaskList: React.FC<TaskListProps> = ({
                 >
                   <td className="p-4 align-middle">
                     <div className="flex items-center justify-center">
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-muted text-xl">
-                        {task.logo}
-                      </span>
+                      {task.logoImageUrl ? (
+                        <img
+                          src={task.logoImageUrl}
+                          alt={task.creatorName}
+                          className="inline-flex h-10 w-10 rounded-md object-cover"
+                        />
+                      ) : (
+                        <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-muted text-xl">
+                          {task.logo}
+                        </span>
+                      )}
                     </div>
                   </td>
                   <td className="p-4 font-medium align-middle">
