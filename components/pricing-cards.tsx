@@ -235,7 +235,7 @@ export default function PricingCards() {
         animationNum={2}
         timelineRef={pricingRef}
         customVariants={revealVariants}
-        className="grid md:grid-cols-3 gap-4 mx-auto sm:p-3"
+        className="grid md:grid-cols-3 gap-4 mx-auto sm:p-3 items-stretch"
       >
         {plans.map((plan, index) => (
           <TimelineContent
@@ -244,9 +244,10 @@ export default function PricingCards() {
             animationNum={index + 3}
             timelineRef={pricingRef}
             customVariants={revealVariants}
+            className="h-full"
           >
             <Card
-              className={`relative flex-col flex justify-between ${
+              className={`relative flex-col flex justify-between h-full ${
                 plan.popular
                   ? "scale-110 ring-2 ring-white bg-gradient-to-t from-black to-neutral-900 text-white"
                   : "border border-white/20 bg-white/10 backdrop-blur-md pt-4 text-white"
