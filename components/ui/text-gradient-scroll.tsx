@@ -127,56 +127,70 @@ function TextGradientScroll({
   };
 
   const textParts = parseText(text);
-  const words: Array<{ word: string; bold: boolean; italic: boolean }> = [];
+  const tokens: Array<{ text: string; bold: boolean; italic: boolean; isWhitespace: boolean }> = [];
+
   textParts.forEach((part) => {
-    const partWords = part.text.split(" ");
-    partWords.forEach((word) => {
-      if (word.trim()) {
-        words.push({ word, bold: part.bold, italic: part.italic });
-      }
+    const splitTokens = part.text.split(/(\s+)/).filter(Boolean);
+    splitTokens.forEach((token) => {
+      tokens.push({
+        text: token,
+        bold: part.bold,
+        italic: part.italic,
+        isWhitespace: /^\s+$/.test(token),
+      });
     });
   });
+
+  const animatedTokensCount = tokens.filter((token) => !token.isWhitespace).length;
+  let animatedIndex = 0;
 
   return (
     <TextGradientScrollContext.Provider value={{ textOpacity, type }}>
       <p ref={ref} className={cn("relative flex m-0 flex-wrap", className)}>
-        {words.map(({ word, bold, italic }, i) => {
-          if (bold) {
-            // Bold text: no animation, just display with bold styling
+        {tokens.map(({ text, bold, italic, isWhitespace }, i) => {
+          if (isWhitespace) {
             return (
-              <strong key={i} className="relative me-2 mt-2 font-bold">
-                {word}
+              <span key={`space-${i}`} className="whitespace-pre">
+                {text}
+              </span>
+            );
+          }
+
+          const start = animatedIndex / animatedTokensCount;
+          const end = start + 1 / animatedTokensCount;
+          animatedIndex += 1;
+
+          if (bold) {
+            return (
+              <strong key={`bold-${i}`} className="relative mt-2 font-bold">
+                {text}
               </strong>
             );
           }
+
           if (italic) {
-            // Italic text: apply scroll animation with italic styling
-            const start = i / words.length;
-            const end = start + 1 / words.length;
             const content = type === "word" ? (
-              <Word key={i} progress={scrollYProgress} range={[start, end]} italic>
-                {word}
+              <Word key={`italic-${i}`} progress={scrollYProgress} range={[start, end]} italic>
+                {text}
               </Word>
             ) : (
-              <Letter key={i} progress={scrollYProgress} range={[start, end]} italic>
-                {word}
+              <Letter key={`italic-${i}`} progress={scrollYProgress} range={[start, end]} italic>
+                {text}
               </Letter>
             );
-            return <React.Fragment key={i}>{content}</React.Fragment>;
+            return <React.Fragment key={`italic-fragment-${i}`}>{content}</React.Fragment>;
           }
-          // Regular text: apply scroll animation
-          const start = i / words.length;
-          const end = start + 1 / words.length;
+
           const content = type === "word" ? (
-            <Word key={i} progress={scrollYProgress} range={[start, end]}>
-              {word}
+            <Word key={`word-${i}`} progress={scrollYProgress} range={[start, end]}>
+              {text}
             </Word>
           ) : (
-            <Letter key={i} progress={scrollYProgress} range={[start, end]}>
-              {word}
+            <Letter key={`letter-${i}`} progress={scrollYProgress} range={[start, end]}>
+              {text}
             </Letter>
           );
-          return <React.Fragment key={i}>{content}</React.Fragment>;
+          return <React.Fragment key={`fragment-${i}`}>{content}</React.Fragment>;
         })}
       </p>
     </TextGradientScrollContext.Provider>
@@ -189,7 +203,7 @@ const Word = ({ children, progress, range, italic }: WordType) => {
   const opacity = useTransform(progress, range, [0, 1]);
 
   return (
-    <span className="relative me-2 mt-2">
+    <span className="relative mt-2">
       <span style={{ position: "absolute", opacity: 0.1 }}>
         {italic ? <em>{children}</em> : children}
       </span>
@@ -206,7 +220,7 @@ const Letter = ({ children, progress, range, italic }: LetterType) => {
     const step = amount / children.length;
 
     return (
-      <span className="relative me-2 mt-2">
+      <span className="relative mt-2">
         {children.split("").map((char: string, i: number) => {
           const start = range[0] + i * step;
           const end = range[0] + (i + 1) * step;

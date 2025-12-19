@@ -201,7 +201,7 @@ export const ProblemSection = () => {
       <span className="flex flex-wrap items-start gap-0">
         {parts.map((part, index) => {
           const className = cn(
-            "text-2xl font-bold text-foreground leading-relaxed inline",
+            "text-2xl font-bold text-foreground leading-relaxed inline whitespace-pre-wrap",
             part.isBold && "font-bold",
             part.isItalic && "italic"
           );
@@ -296,4 +296,3 @@ const ScrollRevealListItem = ({
     </motion.div>
   );
 };
-

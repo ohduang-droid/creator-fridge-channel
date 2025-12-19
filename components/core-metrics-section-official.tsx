@@ -53,7 +53,7 @@ export function CoreMetricsSection() {
     },
     {
       letter: "O",
-      title: "Open Rate",
+      title: "Open Rate → Consumption",
       description: "More reading occasions because consumption starts at real life moments (coffee, cooking, water, family chat and more)",
       delay: 1,
     },

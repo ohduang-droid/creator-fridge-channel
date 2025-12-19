@@ -70,7 +70,7 @@ export default function HomePage() {
         <div className="relative z-10 container mx-auto px-4 py-16 md:py-24 flex flex-col justify-center">
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-5xl font-bold text-balance text-white">THE C.O.R.E Your Fridge Channel improves</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-balance text-white">The C.O.R.E Your Fridge Channel improves</h2>
             </div>
 
             <CoreMetricsSection />

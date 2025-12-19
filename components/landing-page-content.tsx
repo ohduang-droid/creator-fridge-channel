@@ -73,7 +73,7 @@ export const LandingPageContent = ({
                 <span className="text-foreground">•</span>
                 <TextGradientScroll
                   text="Owned household touchpoint (your Newsletter logo lives on the fridge)"
-                  type="letter"
+                  type="word"
                   textOpacity="soft"
                   className="text-lg leading-relaxed"
                 />
@@ -82,7 +82,7 @@ export const LandingPageContent = ({
                 <span className="text-foreground">•</span>
                 <TextGradientScroll
                   text='30–120s "fridge-time" consumption that leads to *Open full issue*'
-                  type="letter"
+                  type="word"
                   textOpacity="soft"
                   className="text-lg leading-relaxed"
                 />
@@ -91,7 +91,7 @@ export const LandingPageContent = ({
                 <span className="text-foreground">•</span>
                 <TextGradientScroll
                   text="New subscriber acquisition with attribution + long-term alignment"
-                  type="letter"
+                  type="word"
                   textOpacity="soft"
                   className="text-lg leading-relaxed"
                 />
@@ -117,22 +117,24 @@ export const LandingPageContent = ({
                 priority={false}
               />
               <div className="absolute inset-0 bg-black/20" />
-              <div className="relative z-10 flex items-end justify-center h-full pb-35">
-                <Link
-                  href="https://calendly.com/billy-fridgechannels/30min"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <ShimmerButton
-                    className="shadow-2xl transition-transform duration-300 hover:scale-110"
-                    background="linear-gradient(120deg, #9f1026, #f25f6c)"
-                    shimmerColor="#ffe5e9"
+              <div className="relative z-10 h-full">
+                <div className="absolute left-1/2 top-[83%] -translate-x-1/2 -translate-y-1/2">
+                  <Link
+                    href="https://calendly.com/billy-fridgechannels/30min"
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
-                      Start your Fridge Channel
-                    </span>
-                  </ShimmerButton>
-                </Link>
+                    <ShimmerButton
+                      className="shadow-2xl transition-transform duration-300 hover:scale-110"
+                      background="linear-gradient(120deg, #9f1026, #f25f6c)"
+                      shimmerColor="#ffe5e9"
+                    >
+                      <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
+                        Start your Fridge Channel
+                      </span>
+                    </ShimmerButton>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
