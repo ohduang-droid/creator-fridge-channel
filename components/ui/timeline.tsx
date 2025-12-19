@@ -34,6 +34,25 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setVisibleSteps((prev) => {
+      const next = new Set(prev);
+      const stepCount = data.length;
+      const maxIndex = Math.max(stepCount - 1, 1);
+      const revealSpan = 0.6;
+      const revealOffset = 0.15;
+
+      data.forEach((_, index) => {
+        const threshold = (index / maxIndex) * revealSpan;
+        if (latest >= Math.max(threshold - revealOffset, 0)) {
+          next.add(index);
+        }
+      });
+
+      return next;
+    });
+  });
+
   // 处理鼠标进入事件，显示所有隐藏的步骤
   const handleMouseEnter = () => {
     // 显示所有步骤（动态生成索引）
@@ -100,4 +119,3 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     </div>
   );
 };
-

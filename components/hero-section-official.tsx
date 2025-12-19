@@ -58,7 +58,7 @@ export const HeroSection = () => {
                   shimmerColor="#ffffff"
                 >
                   <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
-                  Founder Chat → Launch Channel
+                  Start your Fridge Channel
                   </span>
                 </ShimmerButton>
               </Link>

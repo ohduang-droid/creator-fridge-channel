@@ -125,12 +125,12 @@ export const LandingPageContent = ({
                     rel="noreferrer"
                   >
                     <ShimmerButton
-                      className="shadow-2xl transition-transform duration-300 hover:scale-110"
+                      className="px-4 shadow-2xl transition-transform duration-300 hover:scale-110 sm:px-6"
                       background="linear-gradient(120deg, #9f1026, #f25f6c)"
                       shimmerColor="#ffe5e9"
                     >
-                      <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
-                        Start your Fridge Channel
+                      <span className="whitespace-nowrap text-center text-xs font-medium leading-none tracking-tight text-white sm:text-sm lg:text-lg">
+                        Founder Chat → Launch Channel
                       </span>
                     </ShimmerButton>
                   </Link>
