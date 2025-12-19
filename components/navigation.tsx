@@ -292,7 +292,7 @@ export function Navigation() {
                 className="block w-full text-center rounded-full bg-black text-white py-3 font-semibold hover:bg-gray-900 transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                Start your Fridge Channel
+                Founder Chat → Launch Channel
               </Link>
             </div>
           </div>
