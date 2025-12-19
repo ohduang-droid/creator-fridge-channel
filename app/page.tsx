@@ -373,7 +373,7 @@ export default function HomePage() {
             <p className="text-center text-muted-foreground">
               © Fridge Channel
             </p>
-            <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
+            {/* <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
               <Link href="/" className="text-sm hover:underline text-muted-foreground">
                 Home
               </Link>
@@ -389,7 +389,7 @@ export default function HomePage() {
               <Link href="/contact" className="text-sm hover:underline text-muted-foreground">
                 Contact
               </Link>
-            </nav>
+            </nav> */}
           </div>
         </div>
       </footer>

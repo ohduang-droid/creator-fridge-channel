@@ -264,10 +264,10 @@ export default function AboutUsPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-5xl mx-auto space-y-6">
             <p className="text-center text-muted-foreground">
-              © Fridge Channel — Turning content into kitchen-side channels.
+              © Fridge Channel
             </p>
             <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <Link href="/" className="text-sm hover:underline text-muted-foreground">
+              {/* <Link href="/" className="text-sm hover:underline text-muted-foreground">
                 Home
               </Link>
               <Link href="/about-us" className="text-sm hover:underline text-muted-foreground">
@@ -281,7 +281,7 @@ export default function AboutUsPage() {
               </Link>
               <Link href="/contact" className="text-sm hover:underline text-muted-foreground">
                 Contact
-              </Link>
+              </Link> */}
             </nav>
           </div>
         </div>
