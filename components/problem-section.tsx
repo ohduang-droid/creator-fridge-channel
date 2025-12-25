@@ -235,10 +235,10 @@ export const ProblemSection = () => {
 
         {/* Value proposition section */}
         <div className="max-w-5xl mx-auto space-y-6 pt-8">
-          <ul className="space-y-4 text-xl md:text-2xl text-foreground text-pretty leading-relaxed flex flex-col items-center">
+          <ul className="space-y-4 text-xl md:text-2xl text-foreground text-pretty leading-relaxed flex flex-col items-start">
             {listItems.map((item, index) => (
               <ScrollRevealListItem key={index} index={index}>
-                <li className="flex items-center justify-center gap-2">
+                <li className="flex items-center justify-start gap-2">
                   <span className="text-foreground">•</span>
                   <span>
                     {renderFormattedText(item)}
