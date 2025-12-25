@@ -49,9 +49,7 @@ export const HeroSection = () => {
             <div className="flex flex-col items-center gap-4" style={{ marginTop: '40px' }}>
               <div className="flex items-center justify-center gap-4">
                 <Link
-                  href="https://calendly.com/billy-fridgechannels/30min"
-                  target="_blank"
-                  rel="noreferrer"
+                  href="#roi-engine"
                 >
                   <ShimmerButton 
                     className="shadow-2xl transition-transform duration-300 hover:scale-110"
