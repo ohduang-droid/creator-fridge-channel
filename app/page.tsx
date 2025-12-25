@@ -27,7 +27,7 @@ export default function HomePage() {
       </div>
 
       {/* Subscription Value Lost Section */}
-      <section id="subscription-value-lost" className="container mx-auto px-4 pt-16 pb-16 mt-10">
+      <section id="subscription-value-lost" className="container mx-auto px-4 pt-16 pb-16 mt-10 hidden">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-5xl font-bold text-center text-balance mb-6">
             Your Problem
