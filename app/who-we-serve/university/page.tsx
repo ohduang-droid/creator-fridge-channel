@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -6,6 +8,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ShimmerButton } from "@/components/ui/shimmer-button"
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll"
 import { Timeline } from "@/components/ui/timeline"
+import { SectionTransition } from "@/components/ui/section-transition"
+import { FridgeChannelFeatures } from "@/components/fridge-channel-features"
+import { HeroSection } from "@/components/ui/hero-section-with-smooth-bg-shader"
+import { motion } from "framer-motion"
 
 export default function UniversityPage() {
     return (
@@ -13,41 +19,39 @@ export default function UniversityPage() {
             <Navigation />
 
             {/* Hero Section */}
-            <section id="hero" className="relative pt-16 min-h-[700px] overflow-hidden bg-transparent pb-0">
-                {/* Background image */}
-                <div
-                    className="absolute inset-0 z-0"
-                    style={{
-                        backgroundImage: 'url(/bg-our-team.webp)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        filter: 'blur(20px) brightness(1.05)',
-                        transform: 'scale(1.05)',
-                    }}
-                />
-                {/* Fallback green gradient if image not available */}
-                <div
-                    className="absolute inset-0 z-[-1]"
-                    style={{
-                        background: 'linear-gradient(135deg, #1a4d2e 0%, #2d6a4f 25%, #40916c 50%, #52b788 75%, #74c69d 100%)',
-                    }}
-                />
-                <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent/30 via-[#F7F7F4]/20 to-[#F7F7F4]"></div>
-
-                <div className="flex flex-col items-center justify-center px-6 text-center relative z-10 min-h-[700px] mt-6">
+            <HeroSection
+                colors={["#1a4d2e", "#2d6a4f", "#40916c", "#52b788", "#74c69d", "#95d5b2"]}
+                distortion={0.8}
+                swirl={0.6}
+                speed={0.42}
+                offsetX={0.08}
+                veilOpacity="bg-transparent"
+                maxWidth="max-w-5xl"
+                className="pt-16 min-h-[700px]"
+            >
+                <div className="flex flex-col items-center justify-center px-6 text-center min-h-[700px]">
                     <div className="mx-auto max-w-5xl" style={{ marginTop: '80px' }}>
                         <div className="relative mx-auto h-full pt-24 pb-12 p-6">
-                            <h1 className="text-center text-2xl md:text-5xl mt-2 text-white">
+                            <motion.h1
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-white"
+                            >
                                 Alumni revenue infrastructure at home
-                            </h1>
+                            </motion.h1>
                         </div>
 
-                        <div className="text-white py-4 mt-8 text-lg md:text-xl">
-                            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            className="max-w-3xl mx-auto py-4 mt-8"
+                        >
+                            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-white/80">
                                 Fridge Channel turns daily household attention into <strong className="font-semibold text-white">more recurring donors, more renewals, and higher retention</strong>—without platform risk.
-                            </div>
-                        </div>
+                            </p>
+                        </motion.div>
                         <div className="flex items-center justify-center gap-4" style={{ marginTop: '40px' }}>
                             <Link href="https://calendly.com/billy-fridgechannels/30min" target="_blank">
                                 <ShimmerButton
@@ -74,100 +78,74 @@ export default function UniversityPage() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </HeroSection>
 
             {/* Fridge Channel will bring you Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">Fridge Channel will bring you</h2>
                     </div>
 
-                    <div className="max-w-3xl mx-auto space-y-6">
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">More Sustainers (Recurring Giving):</strong> higher enrollment into monthly giving from FC-touched alumni households
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">Higher Retention:</strong> improved year-over-year donor retention and fewer lapses
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">More Renewals:</strong> higher alumni association membership renewals and re-joins
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">Reactivation Support:</strong> measurable lift on <strong className="font-semibold text-foreground">LYBUNT / SYBUNT</strong> reactivation cohorts
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">Audit-ready:</strong> household-level touch evidence + exportable reporting
-                                </p>
-                            </div>
-                        </div>
+                    <div className="mx-auto max-w-3xl lg:max-w-5xl px-6">
+                        <FridgeChannelFeatures />
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Our solution Section */}
-            <section id="what-is-fridge-channel" className="container mx-auto px-4 pt-40 pb-0 bg-muted/30">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section id="what-is-fridge-channel" className="container mx-auto px-4 pt-8 pb-0">
                 <div className="max-w-4xl mx-auto space-y-8">
                     <h2 className="text-3xl md:text-5xl font-bold text-center text-balance">Our solution</h2>
 
-                    <div className="prose prose-lg max-w-none text-foreground space-y-6">
-                        <div className="text-lg leading-relaxed py-2">
-                            <TextGradientScroll
-                                text="Fridge Channel brings your alumni relationship back into daily life through an AI-powered, magnet-based household touchpoint that creates repeated value exposure."
-                                type="letter"
-                                textOpacity="soft"
-                                className="text-lg leading-relaxed max-w-3xl mx-auto"
-                            />
+                    <div className="grid grid-cols-1 md:grid-cols-10 gap-6 items-center">
+                        {/* Left column - 70% (7 columns) */}
+                        <div className="md:col-span-7 prose prose-lg max-w-none text-foreground space-y-6">
+                            <div className="text-lg leading-relaxed py-2">
+                                <TextGradientScroll
+                                    text="Fridge Channel brings your alumni relationship back into daily life through an AI-powered, magnet-based household touchpoint that creates repeated value exposure."
+                                    type="letter"
+                                    textOpacity="soft"
+                                    className="text-lg leading-relaxed"
+                                />
+                            </div>
+                            <div className="text-lg leading-relaxed py-2">
+                                <TextGradientScroll
+                                    text="It's a simple loop: glance → tap → preview."
+                                    type="letter"
+                                    textOpacity="soft"
+                                    className="text-lg leading-relaxed"
+                                />
+                            </div>
+                            <div className="text-lg leading-relaxed py-2">
+                                <TextGradientScroll
+                                    text="Not another channel to push. A channel that shows up—every day."
+                                    type="letter"
+                                    textOpacity="soft"
+                                    className="text-lg leading-relaxed"
+                                />
+                            </div>
                         </div>
-                        <div className="text-lg leading-relaxed py-2">
-                            <TextGradientScroll
-                                text="It's a simple loop: glance → tap → preview."
-                                type="letter"
-                                textOpacity="soft"
-                                className="text-lg leading-relaxed max-w-3xl mx-auto"
-                            />
-                        </div>
-                        <div className="text-lg leading-relaxed py-2">
-                            <TextGradientScroll
-                                text="Not another channel to push. A channel that shows up—every day."
-                                type="letter"
-                                textOpacity="soft"
-                                className="text-lg leading-relaxed max-w-3xl mx-auto"
+
+                        {/* Right column - 30% (3 columns) */}
+                        <div className="md:col-span-3 flex items-center justify-center">
+                            <img 
+                                src="/imgflower.avif" 
+                                alt="Flower" 
+                                className="w-full h-auto object-cover rounded-lg"
                             />
                         </div>
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* What alumni get in one tap Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">What alumni get in one tap</h2>
@@ -189,40 +167,52 @@ export default function UniversityPage() {
                             </p>
                         </div>
 
-                        <div className="space-y-6 pt-4">
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">See what's new</strong> — a real update from campus this week
-                                    </p>
-                                </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                            {/* Left column - Image */}
+                            <div className="flex items-center justify-center">
+                                <img 
+                                    src="/flower.png" 
+                                    alt="Flower" 
+                                    className="w-full h-auto object-cover rounded-lg"
+                                />
                             </div>
 
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">Feel the impact</strong> — one proof point: scholarship outcome, student story, program result
-                                    </p>
+                            {/* Right column - List items */}
+                            <div className="space-y-6">
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">See what's new</strong> — a real update from campus this week
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">Meet someone</strong> — a short alumni spotlight or student interview
-                                    </p>
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">Feel the impact</strong> — one proof point: scholarship outcome, student story, program result
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">Take one next step</strong> — RSVP, volunteer, share, renew, or give (when it's the right moment)
-                                    </p>
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">Meet someone</strong> — a short alumni spotlight or student interview
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">Take one next step</strong> — RSVP, volunteer, share, renew, or give (when it's the right moment)
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -238,11 +228,13 @@ export default function UniversityPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* How it Works Section */}
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
             <section id="how-it-works">
                 <div className="w-full bg-muted/30 dark:bg-neutral-950">
-                    <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-10">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-20">
                         <h2 className="text-3xl md:text-5xl font-bold text-center text-balance mb-12">HOW IT WORKS</h2>
                     </div>
                     <Timeline
@@ -323,65 +315,81 @@ export default function UniversityPage() {
                     />
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Reporting you get Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10 bg-muted/30">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20 bg-muted/30">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">Reporting you get (audit-friendly)</h2>
                     </div>
 
-                    <div className="max-w-3xl mx-auto space-y-8">
-                        <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
-                            Exports can include:
-                        </p>
-
-                        <ul className="space-y-3 text-lg md:text-xl text-muted-foreground ml-4">
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>anonymized household touchpoint ID</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>touch timestamps + preview events</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>content variant ID (which preview / message)</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>cohort label (e.g., SYBUNT test group)</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>optional outcome flags you map from your CRM (giving/renewal indicators)</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>evidence link / dashboard view</span>
-                            </li>
-                        </ul>
-
-                        <div className="space-y-4 pt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        {/* Left column - Content */}
+                        <div className="space-y-8">
                             <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
-                                <strong className="font-semibold text-foreground">No revenue share. No fundraising commission.</strong>
+                                Exports can include:
                             </p>
-                            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
-                                Reporting exists for transparency and internal alignment.
-                            </p>
+
+                            <ul className="space-y-3 text-lg md:text-xl text-muted-foreground ml-4">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>anonymized household touchpoint ID</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>touch timestamps + preview events</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>content variant ID (which preview / message)</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>cohort label (e.g., SYBUNT test group)</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>optional outcome flags you map from your CRM (giving/renewal indicators)</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>evidence link / dashboard view</span>
+                                </li>
+                            </ul>
+
+                            <div className="space-y-4 pt-8">
+                                <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
+                                    <strong className="font-semibold text-foreground">No revenue share. No fundraising commission.</strong>
+                                </p>
+                                <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
+                                    Reporting exists for transparency and internal alignment.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Right column - Image */}
+                        <div className="flex items-center justify-center">
+                            <img 
+                                src="/shadow-image-3163.avif" 
+                                alt="Shadow image" 
+                                className="w-full h-auto object-cover rounded-lg"
+                            />
                         </div>
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Pricing Section */}
+            <SectionTransition intensity="low" enableFade={true} enableMovement={false}>
             <section id="pricing" className="relative min-h-[200vh] overflow-hidden">
-                {/* Blue gradient background */}
+                {/* Background */}
                 <div
                     className="absolute inset-0 z-0"
                     style={{
-                        background: 'linear-gradient(135deg, #3d5a8f 0%, #4a6ba3 25%, #547aba 50%, #5e88c8 75%, #6a96d6 100%)',
+                        backgroundColor: '#469A74',
                     }}
                 ></div>
                 <div
@@ -423,27 +431,27 @@ export default function UniversityPage() {
                     }}
                 ></div>
 
-                <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '87.5px', paddingBottom: '87.5px' }}>
+                <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '175px', paddingBottom: '175px' }}>
                     <div className="max-w-5xl mx-auto space-y-16">
                         <div className="space-y-12">
                             <div className="text-center space-y-4">
-                                <h2 className="text-3xl md:text-5xl font-bold text-balance text-white">PRICING</h2>
-                                <h3 className="text-xl md:text-2xl font-semibold text-white">Flat annual fee. Zero commission.</h3>
+                                <h2 className="text-3xl md:text-5xl font-bold text-balance text-black">PRICING</h2>
+                                <h3 className="text-xl md:text-2xl font-semibold text-black">Flat annual fee. Zero commission.</h3>
                             </div>
 
                             <div className="max-w-2xl mx-auto space-y-8">
                                 <div className="space-y-4">
                                     <div className="flex items-start gap-4">
-                                        <div className="w-2 h-2 rounded-full bg-white mt-2 shrink-0" />
+                                        <div className="w-2 h-2 rounded-full bg-black mt-2 shrink-0" />
                                         <div className="flex-1 space-y-2">
-                                            <p className="text-xl md:text-2xl font-semibold text-white">
+                                            <p className="text-xl md:text-2xl font-semibold text-black">
                                                 <span className="text-3xl md:text-4xl">$39.90</span> per magnet / per year
                                             </p>
-                                            <p className="text-base md:text-lg text-white/80">
-                                                <strong className="font-semibold text-white">1 magnet = 1 alumni household touchpoint</strong> (tracked, auditable).
+                                            <p className="text-base md:text-lg text-black/80">
+                                                <strong className="font-semibold text-black">1 magnet = 1 alumni household touchpoint</strong> (tracked, auditable).
                                             </p>
-                                            <p className="text-base md:text-lg text-white/80">
-                                                This is a <strong className="font-semibold text-white">channel fee</strong>, not a fundraising cut. You keep 100% of donations and dues.
+                                            <p className="text-base md:text-lg text-black/80">
+                                                This is a <strong className="font-semibold text-black">channel fee</strong>, not a fundraising cut. You keep 100% of donations and dues.
                                             </p>
                                         </div>
                                     </div>
@@ -453,33 +461,33 @@ export default function UniversityPage() {
 
                         {/* What's included */}
                         <div className="space-y-6 pt-8">
-                            <h3 className="text-xl md:text-2xl font-semibold text-white text-center">What's included (end-to-end)</h3>
+                            <h3 className="text-xl md:text-2xl font-semibold text-black text-center">What's included (end-to-end)</h3>
 
                             <div className="max-w-3xl mx-auto space-y-4">
-                                <ul className="space-y-3 text-lg md:text-xl text-white/90 ml-4">
+                                <ul className="space-y-3 text-lg md:text-xl text-black/90 ml-4">
                                     <li className="flex items-start gap-2">
-                                        <span className="text-white mt-1">•</span>
-                                        <span><strong className="font-semibold text-white">Institution-ready design:</strong> branding, layouts, CTA patterns, message templates</span>
+                                        <span className="text-black mt-1">•</span>
+                                        <span><strong className="font-semibold text-black">Institution-ready design:</strong> branding, layouts, CTA patterns, message templates</span>
                                     </li>
                                     <li className="flex items-start gap-2">
-                                        <span className="text-white mt-1">•</span>
-                                        <span><strong className="font-semibold text-white">Manufacturing + QA:</strong> NFC build, finishing, reliability checks</span>
+                                        <span className="text-black mt-1">•</span>
+                                        <span><strong className="font-semibold text-black">Manufacturing + QA:</strong> NFC build, finishing, reliability checks</span>
                                     </li>
                                     <li className="flex items-start gap-2">
-                                        <span className="text-white mt-1">•</span>
-                                        <span><strong className="font-semibold text-white">Logistics handled:</strong> customs clearance + shipping + delivery coordination</span>
+                                        <span className="text-black mt-1">•</span>
+                                        <span><strong className="font-semibold text-black">Logistics handled:</strong> customs clearance + shipping + delivery coordination</span>
                                     </li>
                                     <li className="flex items-start gap-2">
-                                        <span className="text-white mt-1">•</span>
-                                        <span><strong className="font-semibold text-white">AI system included:</strong> preview generation, routing, personalization logic, content ops rules</span>
+                                        <span className="text-black mt-1">•</span>
+                                        <span><strong className="font-semibold text-black">AI system included:</strong> preview generation, routing, personalization logic, content ops rules</span>
                                     </li>
                                     <li className="flex items-start gap-2">
-                                        <span className="text-white mt-1">•</span>
-                                        <span><strong className="font-semibold text-white">Tracking + reporting:</strong> dashboards + exportable CSV + evidence links</span>
+                                        <span className="text-black mt-1">•</span>
+                                        <span><strong className="font-semibold text-black">Tracking + reporting:</strong> dashboards + exportable CSV + evidence links</span>
                                     </li>
                                     <li className="flex items-start gap-2">
-                                        <span className="text-white mt-1">•</span>
-                                        <span><strong className="font-semibold text-white">Pilot setup + iteration:</strong> cohort plan + rollout playbook + monthly optimization loop</span>
+                                        <span className="text-black mt-1">•</span>
+                                        <span><strong className="font-semibold text-black">Pilot setup + iteration:</strong> cohort plan + rollout playbook + monthly optimization loop</span>
                                     </li>
                                 </ul>
                             </div>
@@ -488,9 +496,9 @@ export default function UniversityPage() {
                         {/* Recommended pilot sizing */}
                         <div className="space-y-6 pt-8">
                             <div className="max-w-3xl mx-auto space-y-4">
-                                <h3 className="text-2xl md:text-3xl font-bold text-white text-center">Recommended pilot sizing</h3>
-                                <p className="text-lg md:text-xl text-white/90 text-center">
-                                    Most universities start with <strong className="font-semibold text-white">1,500–3,000 alumni household touchpoints</strong> for a clear pilot readout and clean internal alignment.
+                                <h3 className="text-2xl md:text-3xl font-bold text-black text-center">Recommended pilot sizing</h3>
+                                <p className="text-lg md:text-xl text-black/90 text-center">
+                                    Most universities start with <strong className="font-semibold text-black">1,500–3,000 alumni household touchpoints</strong> for a clear pilot readout and clean internal alignment.
                                 </p>
                             </div>
                         </div>
@@ -518,9 +526,11 @@ export default function UniversityPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Privacy & compliance Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">Privacy & compliance</h2>
@@ -556,9 +566,11 @@ export default function UniversityPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Final CTA Section */}
-            <section className="w-full pt-20 pb-20" style={{ backgroundColor: '#275692' }}>
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="w-full pt-40 pb-40" style={{ backgroundColor: '#2E6B50' }}>
                 <div className="max-w-4xl mx-auto px-4 space-y-12">
                     <div className="text-center space-y-6">
                         <h2 className="text-2xl md:text-4xl font-bold text-balance text-white">
@@ -580,9 +592,11 @@ export default function UniversityPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* FAQ Section */}
-            <section id="faq" className="container mx-auto px-4 pt-10 pb-10 border-t border-border">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section id="faq" className="container mx-auto px-4 pt-20 pb-20 border-t border-border">
                 <div className="max-w-5xl mx-auto">
                     <div className="grid gap-8 md:grid-cols-5 md:gap-12">
                         <div className="md:col-span-2">
@@ -664,6 +678,7 @@ export default function UniversityPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Footer */}
             <footer className="bg-muted/30">

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -6,6 +8,75 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { ShimmerButton } from "@/components/ui/shimmer-button"
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll"
 import { Timeline } from "@/components/ui/timeline"
+import { SectionTransition } from "@/components/ui/section-transition"
+import { HeroSection } from "@/components/ui/hero-section-with-smooth-bg-shader"
+import { useRef } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+
+function RevealText({ children, index, total }: { children: React.ReactNode; index: number; total: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.8", "start 0.2"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [20, 0, 0]);
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ opacity, y }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function NonprofitFridgeChannelFeatures() {
+  const features = [
+    {
+      title: "More Monthly Donors (Sustainers):",
+      description: "higher enrollment into recurring giving from FC-touched households"
+    },
+    {
+      title: "Higher Donor Retention:",
+      description: "improved high retention and reduced churn in monthly giving"
+    },
+    {
+      title: "More Reactivation:",
+      description: "measurable lift reactivating lapsed donors and \"about-to-lapse\" supporters"
+    },
+    {
+      title: "Campaign Conversion That Sticks:",
+      description: "Giving Day and match campaigns that convert into long-term sustainers"
+    },
+    {
+      title: "Audit-ready:",
+      description: "household-level touch evidence + exportable reporting"
+    }
+  ];
+
+  return (
+    <div className="relative">
+      <div className="relative z-10 space-y-4">
+        {features.map((feature, index) => (
+          <RevealText key={index} index={index} total={features.length}>
+            <div className="flex gap-4 items-start">
+              <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+              <div className="flex-1">
+                <p className="text-lg md:text-xl leading-relaxed">
+                  <strong className="font-semibold text-foreground">{feature.title}</strong> {feature.description}
+                </p>
+              </div>
+            </div>
+          </RevealText>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function NonprofitPage() {
     return (
@@ -13,41 +84,39 @@ export default function NonprofitPage() {
             <Navigation />
 
             {/* Hero Section */}
-            <section id="hero" className="relative pt-16 min-h-[700px] overflow-hidden bg-transparent pb-0">
-                {/* Background image - please add careers-hero-bg.webp to public folder */}
-                <div
-                    className="absolute inset-0 z-0"
-                    style={{
-                        backgroundImage: 'url(/careers-hero-bg.webp)',
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        filter: 'blur(20px) brightness(1.05)',
-                        transform: 'scale(1.05)',
-                    }}
-                />
-                {/* Fallback green gradient if image not available */}
-                <div
-                    className="absolute inset-0 z-[-1]"
-                    style={{
-                        background: 'linear-gradient(135deg, #1a4d2e 0%, #2d6a4f 25%, #40916c 50%, #52b788 75%, #74c69d 100%)',
-                    }}
-                />
-                <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-transparent/30 via-[#F7F7F4]/20 to-[#F7F7F4]"></div>
-
-                <div className="flex flex-col items-center justify-center px-6 text-center relative z-10 min-h-[700px] mt-6">
+            <HeroSection
+                colors={["#1e3a8a", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#dbeafe"]}
+                distortion={0.8}
+                swirl={0.6}
+                speed={0.42}
+                offsetX={0.08}
+                veilOpacity="bg-transparent"
+                maxWidth="max-w-5xl"
+                className="pt-16 min-h-[700px]"
+            >
+                <div className="flex flex-col items-center justify-center px-6 text-center min-h-[700px]">
                     <div className="mx-auto max-w-5xl" style={{ marginTop: '80px' }}>
                         <div className="relative mx-auto h-full pt-24 pb-12 p-6">
-                            <h1 className="text-center text-2xl md:text-5xl mt-2 text-white">
+                            <motion.h1
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-white"
+                            >
                                 Recurring donor infrastructure at home
-                            </h1>
+                            </motion.h1>
                         </div>
 
-                        <div className="text-white py-4 mt-8 text-lg md:text-xl">
-                            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            className="max-w-3xl mx-auto py-4 mt-8"
+                        >
+                            <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-white/80">
                                 Fridge Channel is a household-owned channel with the highest daily-life exposure. It turns daily attention into <strong className="font-semibold text-white">more monthly donors, higher retention, and fewer lapses</strong>—without platform risk.
-                            </div>
-                        </div>
+                            </p>
+                        </motion.div>
                         <div className="flex items-center justify-center gap-4" style={{ marginTop: '40px' }}>
                             <Link href="https://calendly.com/billy-fridgechannels/30min" target="_blank">
                                 <ShimmerButton
@@ -74,73 +143,43 @@ export default function NonprofitPage() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </HeroSection>
 
             {/* Fridge Channel will bring you Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">Fridge Channel will bring you</h2>
                     </div>
 
-                    <div className="max-w-3xl mx-auto space-y-6">
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">More Monthly Donors (Sustainers):</strong> higher enrollment into recurring giving from FC-touched households
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">Higher Donor Retention:</strong> improved high retention and reduced churn in monthly giving
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">More Reactivation:</strong> measurable lift reactivating <strong className="font-semibold text-foreground">lapsed donors</strong> and "about-to-lapse" supporters
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">Campaign Conversion That Sticks:</strong> Giving Day and match campaigns that convert into long-term sustainers
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex gap-4 items-start">
-                            <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                            <div className="flex-1">
-                                <p className="text-lg md:text-xl leading-relaxed">
-                                    <strong className="font-semibold text-foreground">Audit-ready:</strong> household-level touch evidence + exportable reporting
-                                </p>
-                            </div>
-                        </div>
+                    <div className="mx-auto max-w-3xl lg:max-w-5xl px-6">
+                        <NonprofitFridgeChannelFeatures />
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Why this works for nonprofits Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10 bg-muted/30">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20 bg-muted/30">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">Why this works for nonprofits</h2>
                     </div>
 
-                    <div className="max-w-3xl mx-auto space-y-8">
-                        <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-10 gap-6 items-center">
+                        {/* Left column - 30% (3 columns) - Image */}
+                        <div className="md:col-span-3 flex items-center justify-center">
+                            <img 
+                                src="/001.avif" 
+                                alt="Why this works for nonprofits" 
+                                className="w-full h-auto object-cover rounded-lg"
+                            />
+                        </div>
+
+                        {/* Right column - 70% (7 columns) - Content */}
+                        <div className="md:col-span-7 space-y-4">
                             <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
                                 Your hardest problem isn't awareness. It's <strong className="font-semibold text-foreground">staying present between campaigns</strong>.
                             </p>
@@ -154,43 +193,59 @@ export default function NonprofitPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Our solution Section */}
-            <section id="what-is-fridge-channel" className="container mx-auto px-4 pt-40 pb-0 bg-muted/30">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section id="what-is-fridge-channel" className="container mx-auto px-4 pt-8 pb-0">
                 <div className="max-w-4xl mx-auto space-y-8">
                     <h2 className="text-3xl md:text-5xl font-bold text-center text-balance">Our solution</h2>
 
-                    <div className="prose prose-lg max-w-none text-foreground space-y-6">
-                        <div className="text-lg leading-relaxed py-2">
-                            <TextGradientScroll
-                                text="Fridge Channel brings your mission into daily life through an AI-powered, magnet-based household touchpoint that creates repeated value exposure."
-                                type="letter"
-                                textOpacity="soft"
-                                className="text-lg leading-relaxed max-w-3xl mx-auto"
-                            />
+                    <div className="grid grid-cols-1 md:grid-cols-10 gap-6 items-center">
+                        {/* Left column - 70% (7 columns) */}
+                        <div className="md:col-span-7 prose prose-lg max-w-none text-foreground space-y-6">
+                            <div className="text-lg leading-relaxed py-2">
+                                <TextGradientScroll
+                                    text="Fridge Channel brings your mission into daily life through an AI-powered, magnet-based household touchpoint that creates repeated value exposure."
+                                    type="letter"
+                                    textOpacity="soft"
+                                    className="text-lg leading-relaxed"
+                                />
+                            </div>
+                            <div className="text-lg leading-relaxed py-2">
+                                <TextGradientScroll
+                                    text="It's a simple loop: glance → tap → preview."
+                                    type="letter"
+                                    textOpacity="soft"
+                                    className="text-lg leading-relaxed"
+                                />
+                            </div>
+                            <div className="text-lg leading-relaxed py-2">
+                                <TextGradientScroll
+                                    text="Not another feed. Not another inbox battle. A channel that shows up."
+                                    type="letter"
+                                    textOpacity="soft"
+                                    className="text-lg leading-relaxed"
+                                />
+                            </div>
                         </div>
-                        <div className="text-lg leading-relaxed py-2">
-                            <TextGradientScroll
-                                text="It's a simple loop: glance → tap → preview."
-                                type="letter"
-                                textOpacity="soft"
-                                className="text-lg leading-relaxed max-w-3xl mx-auto"
-                            />
-                        </div>
-                        <div className="text-lg leading-relaxed py-2">
-                            <TextGradientScroll
-                                text="Not another feed. Not another inbox battle. A channel that shows up."
-                                type="letter"
-                                textOpacity="soft"
-                                className="text-lg leading-relaxed max-w-3xl mx-auto"
+
+                        {/* Right column - 30% (3 columns) */}
+                        <div className="md:col-span-3 flex items-center justify-center">
+                            <img 
+                                src="/imgflower.avif" 
+                                alt="Flower" 
+                                className="w-full h-auto object-cover rounded-lg"
                             />
                         </div>
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* What supporters get in one tap Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">What supporters get in one tap</h2>
@@ -212,40 +267,52 @@ export default function NonprofitPage() {
                             </p>
                         </div>
 
-                        <div className="space-y-6 pt-4">
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">See impact quickly</strong> — one concrete outcome this week
-                                    </p>
-                                </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                            {/* Left column - Image */}
+                            <div className="flex items-center justify-center">
+                                <img 
+                                    src="/flower.png" 
+                                    alt="Flower" 
+                                    className="w-full h-auto object-cover rounded-lg"
+                                />
                             </div>
 
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">Meet a story</strong> — a short beneficiary / field update / frontline moment
-                                    </p>
+                            {/* Right column - List items */}
+                            <div className="space-y-6">
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">See impact quickly</strong> — one concrete outcome this week
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">Understand urgency</strong> — what's happening right now, and why it matters
-                                    </p>
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">Meet a story</strong> — a short beneficiary / field update / frontline moment
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="flex gap-4 items-start">
-                                <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
-                                <div className="flex-1">
-                                    <p className="text-lg md:text-xl leading-relaxed">
-                                        <strong className="font-semibold text-foreground">Take one next step</strong> — share, volunteer, start monthly giving, or give once (when it's the right moment)
-                                    </p>
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">Understand urgency</strong> — what's happening right now, and why it matters
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="flex gap-4 items-start">
+                                    <div className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0" />
+                                    <div className="flex-1">
+                                        <p className="text-lg md:text-xl leading-relaxed">
+                                            <strong className="font-semibold text-foreground">Take one next step</strong> — share, volunteer, start monthly giving, or give once (when it's the right moment)
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -261,11 +328,13 @@ export default function NonprofitPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* How it Works Section */}
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
             <section id="how-it-works">
                 <div className="w-full bg-muted/30 dark:bg-neutral-950">
-                    <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-10">
+                    <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-20">
                         <h2 className="text-3xl md:text-5xl font-bold text-center text-balance mb-12">HOW IT WORKS</h2>
                     </div>
                     <Timeline
@@ -345,65 +414,81 @@ export default function NonprofitPage() {
                     />
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Reporting you get Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10 bg-muted/30">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20 bg-muted/30">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">Reporting you get (audit-friendly)</h2>
                     </div>
 
-                    <div className="max-w-3xl mx-auto space-y-8">
-                        <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
-                            Exports can include:
-                        </p>
-
-                        <ul className="space-y-3 text-lg md:text-xl text-muted-foreground ml-4">
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>anonymized household touchpoint ID</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>touch timestamps + preview events</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>content variant ID (which preview / message)</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>cohort label (e.g., lapsed test group)</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>optional outcome flags you map from your CRM (monthly start / retention indicators)</span>
-                            </li>
-                            <li className="flex items-start gap-2">
-                                <span className="text-primary mt-1">•</span>
-                                <span>evidence link / dashboard view</span>
-                            </li>
-                        </ul>
-
-                        <div className="space-y-4 pt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        {/* Left column - Content */}
+                        <div className="space-y-8">
                             <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
-                                <strong className="font-semibold text-foreground">No revenue share. No fundraising commission.</strong>
+                                Exports can include:
                             </p>
-                            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
-                                Reporting exists for transparency and internal alignment.
-                            </p>
+
+                            <ul className="space-y-3 text-lg md:text-xl text-muted-foreground ml-4">
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>anonymized household touchpoint ID</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>touch timestamps + preview events</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>content variant ID (which preview / message)</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>cohort label (e.g., lapsed test group)</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>optional outcome flags you map from your CRM (monthly start / retention indicators)</span>
+                                </li>
+                                <li className="flex items-start gap-2">
+                                    <span className="text-primary mt-1">•</span>
+                                    <span>evidence link / dashboard view</span>
+                                </li>
+                            </ul>
+
+                            <div className="space-y-4 pt-8">
+                                <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
+                                    <strong className="font-semibold text-foreground">No revenue share. No fundraising commission.</strong>
+                                </p>
+                                <p className="text-lg md:text-xl leading-relaxed text-muted-foreground">
+                                    Reporting exists for transparency and internal alignment.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Right column - Image */}
+                        <div className="flex items-center justify-center">
+                            <img 
+                                src="/shadow-image-3163.avif" 
+                                alt="Shadow image" 
+                                className="w-full h-auto object-cover rounded-lg"
+                            />
                         </div>
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Pricing Section */}
+            <SectionTransition intensity="low" enableFade={true} enableMovement={false}>
             <section id="pricing" className="relative min-h-[200vh] overflow-hidden">
-                {/* Green gradient background */}
+                {/* Blue background */}
                 <div
                     className="absolute inset-0 z-0"
                     style={{
-                        background: 'linear-gradient(135deg, #5a6524 0%, #6b7729 25%, #73802e 50%, #7d8a35 75%, #8a9840 100%)',
+                        backgroundColor: '#84B5F8',
                     }}
                 ></div>
                 <div
@@ -445,7 +530,7 @@ export default function NonprofitPage() {
                     }}
                 ></div>
 
-                <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '87.5px', paddingBottom: '87.5px' }}>
+                <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center min-h-[200vh]" style={{ paddingTop: '175px', paddingBottom: '175px' }}>
                     <div className="max-w-5xl mx-auto space-y-16">
                         <div className="space-y-12">
                             <div className="text-center space-y-4">
@@ -540,9 +625,11 @@ export default function NonprofitPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Privacy & trust Section */}
-            <section className="container mx-auto px-4 pt-20 pb-10">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="container mx-auto px-4 pt-40 pb-20">
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl md:text-5xl font-bold text-balance">Privacy & trust</h2>
@@ -578,9 +665,11 @@ export default function NonprofitPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Final CTA Section */}
-            <section className="w-full pt-20 pb-20" style={{ backgroundColor: '#273122' }}>
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section className="w-full pt-40 pb-40" style={{ backgroundColor: '#3154A6' }}>
                 <div className="max-w-4xl mx-auto px-4 space-y-12">
                     <div className="text-center space-y-6">
                         <h2 className="text-2xl md:text-4xl font-bold text-balance text-white">
@@ -602,9 +691,11 @@ export default function NonprofitPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* FAQ Section */}
-            <section id="faq" className="container mx-auto px-4 pt-10 pb-10 border-t border-border">
+            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+            <section id="faq" className="container mx-auto px-4 pt-20 pb-20 border-t border-border">
                 <div className="max-w-5xl mx-auto">
                     <div className="grid gap-8 md:grid-cols-5 md:gap-12">
                         <div className="md:col-span-2">
@@ -686,6 +777,7 @@ export default function NonprofitPage() {
                     </div>
                 </div>
             </section>
+            </SectionTransition>
 
             {/* Footer */}
             <footer className="bg-muted/30">
