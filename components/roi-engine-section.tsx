@@ -44,7 +44,7 @@ export const ROIEngineSection = () => {
         {/* CTA Button */}
         <div className="flex flex-col items-center gap-4">
           <Link
-            href="https://roiengine.fridgechannels.com"
+            href="https://calendly.com/billy-fridgechannels/30min"
             target="_blank"
             rel="noreferrer"
           >

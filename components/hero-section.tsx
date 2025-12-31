@@ -363,7 +363,7 @@ export const HeroSection = ({
 
           <div className="flex items-center justify-center" style={{ marginTop: '40px' }}>
             <Link
-              href="https://roiengine.fridgechannels.com"
+              href="https://calendly.com/billy-fridgechannels/30min"
               target="_blank"
               rel="noreferrer"
             >

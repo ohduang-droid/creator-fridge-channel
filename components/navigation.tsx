@@ -327,7 +327,7 @@ export function Navigation() {
             </div>
             <div className="mt-auto pt-6">
               <Link
-                href="https://roiengine.fridgechannels.com"
+                href="https://calendly.com/billy-fridgechannels/30min"
                 target="_blank"
                 rel="noreferrer"
                 className="block w-full text-center rounded-full bg-black text-white py-3 font-semibold hover:bg-gray-900 transition-colors"

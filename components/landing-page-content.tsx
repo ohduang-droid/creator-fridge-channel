@@ -120,7 +120,7 @@ export const LandingPageContent = ({
               <div className="relative z-10 h-full">
                 <div className="absolute left-1/2 top-[83%] -translate-x-1/2 -translate-y-1/2">
                   <Link
-                    href="https://roiengine.fridgechannels.com"
+                    href="https://calendly.com/billy-fridgechannels/30min"
                     target="_blank"
                     rel="noreferrer"
                   >
