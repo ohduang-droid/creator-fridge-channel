@@ -47,24 +47,6 @@ const ImageMask = React.forwardRef<HTMLDivElement, ComponentProps>(
               fill='#D9D9D9'
             />
           </clipPath>
-          <clipPath id='clip-pattern3' clipPathUnits={'objectBoundingBox'}>
-            <path
-              d='M1 1H0.293592V0.868235H0V0.412941C0.0268256 0.241176 0.256754 0.0822454 0.500745 0C0.788326 0.098025 0.962742 0.26 0.99851 0.409412L1 1Z'
-              fill='#D9D9D9'
-            />
-          </clipPath>
-          <clipPath id='clip-pattern4' clipPathUnits={'objectBoundingBox'}>
-            <path
-              d='M0.997417 0.541807C1.02854 0.316235 0.773628 -0.00919936 0.492039 0.000199072C0.249199 0.00830422 0 0.217547 0 0.539457C0.0251948 0.836695 0.248984 1 0.492039 1C0.745469 1 0.982596 0.83787 0.997417 0.541807Z'
-              fill='#D9D9D9'
-            />
-          </clipPath>
-          <clipPath id='clip-pattern5' clipPathUnits={'objectBoundingBox'}>
-            <path
-              d='M0.00886287 0.313679C0.0269396 0.216981 0.172073 0 0.502947 0C0.798211 0 0.962906 0.196934 0.992581 0.318396C1.02374 0.511792 0.937683 0.525943 0.921363 0.625C0.921363 0.716981 1 0.746462 1 0.833726C0.988294 0.89801 0.974952 0.93728 0.949553 1H0.0504066C0.0237622 0.936348 0.00886178 0.908019 0.00292682 0.834906C-0.0104279 0.748821 0.0726626 0.735849 0.0771149 0.625C0.0696933 0.525943 -0.0297155 0.520047 0.00886287 0.313679Z'
-              fill='#D9D9D9'
-            />
-          </clipPath>
           <clipPath id='clip-pattern6' clipPathUnits={'objectBoundingBox'}>
             <path
               d='M0 1H0.152466C0.185351 0.960002 0.327354 0.884713 0.505232 0.884713C0.683109 0.884713 0.818635 0.968237 0.849028 1H1V0.347104C0.985052 0.222406 0.838565 0.00477544 0.497758 6.98837e-05C0.156951 -0.00463567 0.0239163 0.229466 0 0.347104V1Z'
@@ -114,33 +96,6 @@ const ImageMask = React.forwardRef<HTMLDivElement, ComponentProps>(
             className='transition-all duration-300 aspect-[4/5] min-h-full align-bottom object-cover hover:scale-110 w-full'
           />
         </figure>
-        <figure style={{ clipPath: 'url(#clip-pattern3)' }} className='overflow-hidden'>
-          <Image
-            src={mockGalleryImages[3]}
-            alt=''
-            width={400}
-            height={500}
-            className='transition-all duration-300 aspect-[4/5] min-h-full align-bottom object-cover hover:scale-110 w-full'
-          />
-        </figure>
-        <figure style={{ clipPath: 'url(#clip-pattern4)' }} className='overflow-hidden'>
-          <Image
-            src={mockGalleryImages[4]}
-            alt=''
-            width={400}
-            height={500}
-            className='transition-all duration-300 aspect-[4/5] min-h-full align-bottom object-cover hover:scale-110 w-full'
-          />
-        </figure>
-        <figure style={{ clipPath: 'url(#clip-pattern5)' }} className='overflow-hidden'>
-          <Image
-            src={mockGalleryImages[5]}
-            alt=''
-            width={400}
-            height={500}
-            className='transition-all duration-300 aspect-[4/5] min-h-full align-bottom object-cover hover:scale-110 w-full'
-          />
-        </figure>
         <figure style={{ clipPath: 'url(#clip-pattern6)' }} className='overflow-hidden'>
           <Image
             src={mockGalleryImages[6]}
@@ -167,34 +122,6 @@ const ImageMask = React.forwardRef<HTMLDivElement, ComponentProps>(
             height={500}
             className='transition-all duration-300 aspect-[4/5] min-h-full align-bottom object-cover hover:scale-110 w-full'
           />
-        </figure>
-      </section>
-
-      <section className='dark:bg-black mt-4 bg-white border rounded-lg p-5'>
-        <figure className='relative group w-full'>
-          <svg
-            className='w-full'
-            width={'100%'}
-            height={'100%'}
-            viewBox='0 0 100 40'
-            preserveAspectRatio='none'
-          >
-            <defs>
-              <clipPath id='clip-inverted' clipPathUnits={'objectBoundingBox'}>
-                <path
-                  d='M0.0998072 1H0.422076H0.749756C0.767072 1 0.774207 0.961783 0.77561 0.942675V0.807325C0.777053 0.743631 0.791844 0.731953 0.799059 0.734076H0.969813C0.996268 0.730255 1.00088 0.693206 0.999875 0.675159V0.0700637C0.999875 0.0254777 0.985045 0.00477707 0.977629 0H0.902473C0.854975 0 0.890448 0.138535 0.850165 0.138535H0.0204424C0.00408849 0.142357 0 0.180467 0 0.199045V0.410828C0 0.449045 0.0136283 0.46603 0.0204424 0.469745H0.0523086C0.0696245 0.471019 0.0735527 0.497877 0.0733523 0.511146V0.915605C0.0723903 0.983121 0.090588 1 0.0998072 1Z'
-                  fill='#D9D9D9'
-                />
-              </clipPath>
-            </defs>
-            <image
-              clipPath='url(#clip-inverted)'
-              preserveAspectRatio='xMidYMid slice'
-              width={'100%'}
-              height={'100%'}
-              href={mockGalleryImages[8]}
-            />
-          </svg>
         </figure>
       </section>
     </div>

@@ -151,19 +151,6 @@ export function TrustComplianceSection() {
             </Button>
           </div>
         </div>
-
-        {/* Request a mock CTA */}
-        <div className="text-center pt-8">
-          <Button asChild className="w-full sm:w-auto">
-            <a
-              href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Request a mock
-            </a>
-          </Button>
-        </div>
       </div>
     </section>
   );

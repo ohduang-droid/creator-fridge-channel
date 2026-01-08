@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 
 import { Navigation } from "@/components/navigation"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
@@ -12,7 +13,7 @@ export default function PricingPage() {
 
       <main className="pt-28 flex-1">
         <section className="container mx-auto px-6 pt-10 pb-16">
-          <div className="max-w-5xl mx-auto space-y-12">
+          <div className="max-w-5xl mx-auto space-y-24">
             <header className="space-y-4 text-center">
               <h1 className="text-4xl md:text-6xl font-bold text-balance">Pricing</h1>
             </header>
@@ -28,38 +29,54 @@ export default function PricingPage() {
               </p>
 
               {/* What counts as Active - moved here with normal text styling */}
-              <div className="border border-border/60 rounded-lg p-6 bg-muted/10 text-left">
-                <div className="space-y-3 text-sm text-muted-foreground leading-normal">
-                  <p>
-                    A touchpoint is <strong className="font-semibold text-foreground">Active</strong> when it shows real
-                    engagement in a given month. There are two levels:
-                  </p>
-
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>
-                      <strong className="font-semibold text-foreground">Impact Active (Heard)</strong> means the touchpoint reaches{" "}
-                      <strong className="font-semibold text-foreground">≥10 seconds verified listen/engagement</strong> within the
-                      month.
-                    </li>
-
-                    <li>
-                      <strong className="font-semibold text-foreground">Intent Active (Qualified CTA)</strong> means it generates{" "}
-                      <strong className="font-semibold text-foreground">≥1 qualified CTA</strong> within the month.
-                    </li>
-                  </ul>
-
-                  <div className="space-y-2">
-                    <p className="text-muted-foreground">
-                      <strong className="font-semibold text-foreground">What makes a CTA "qualified"</strong> (to avoid mis-click
-                      billing)?
+              <div className="p-6">
+                <div className="flex flex-col md:flex-row gap-6 items-start">
+                  {/* Left column: Content */}
+                  <div className="flex-1 rounded-lg border border-border/60 bg-muted/10 p-6 space-y-3 text-sm text-muted-foreground leading-normal text-left">
+                    <p>
+                      A touchpoint is <strong className="font-semibold text-foreground">Active</strong> when it shows real
+                      engagement in a given month. There are two levels:
                     </p>
-                    <ul className="list-disc pl-5 space-y-1">
+
+                    <ul className="list-disc pl-5 space-y-2">
                       <li>
-                        CTA click + landing page stay <strong className="font-semibold text-foreground">≥3 seconds</strong>,{" "}
-                        <strong className="font-semibold text-foreground">or</strong>
+                        <strong className="font-semibold text-foreground">Impact Active (Heard)</strong> means the touchpoint reaches{" "}
+                        <strong className="font-semibold text-foreground">≥10 seconds verified listen/engagement</strong> within the
+                        month.
                       </li>
-                      <li>CTA click + a meaningful event (e.g., add-to-cart, donate form start, checkout start)</li>
+
+                      <li>
+                        <strong className="font-semibold text-foreground">Intent Active (Qualified CTA)</strong> means it generates{" "}
+                        <strong className="font-semibold text-foreground">≥1 qualified CTA</strong> within the month.
+                      </li>
                     </ul>
+
+                    <div className="space-y-2">
+                      <p className="text-muted-foreground">
+                        <strong className="font-semibold text-foreground">What makes a CTA "qualified"</strong> (to avoid mis-click
+                        billing)?
+                      </p>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>
+                          CTA click + landing page stay <strong className="font-semibold text-foreground">≥3 seconds</strong>,{" "}
+                          <strong className="font-semibold text-foreground">or</strong>
+                        </li>
+                        <li>CTA click + a meaningful event (e.g., add-to-cart, donate form start, checkout start)</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Right column: Image */}
+                  <div className="flex-shrink-0 w-full md:w-auto">
+                    <div className="relative w-full md:w-64 h-64 rounded-lg overflow-hidden">
+                      <Image
+                        src="/imgflower.avif"
+                        alt="Touchpoint engagement illustration"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 256px"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

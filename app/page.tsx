@@ -27,6 +27,8 @@ export default function HomePage() {
     offset: ["start start", "end start"]
   });
 
+  const ctaBgUrl = encodeURI("/截屏2026-01-08 19.34.38.png");
+
   // Hero content fade out as user scrolls
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
@@ -341,9 +343,16 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <section 
-        className="w-full py-12 relative"
+        className="w-full py-12 relative overflow-hidden"
+        style={{
+          backgroundImage: `url('${ctaBgUrl}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="absolute inset-0 bg-black/10" aria-hidden="true" />
+        <div className="relative z-10 max-w-4xl mx-auto px-4">
           <div className="flex justify-center">
             <Link href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank">
               <ShimmerButton
