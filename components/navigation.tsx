@@ -27,9 +27,11 @@ export function Navigation() {
 
   // Determine current "Who We Serve" page for label display
   const getCurrentWhoWeServe = () => {
-    if (pathname?.includes('/who-we-serve/university')) return 'University';
-    if (pathname?.includes('/who-we-serve/subscription-business')) return 'Subscription Business';
-    if (pathname?.includes('/who-we-serve/nonprofit')) return 'Nonprofit';
+    if (pathname?.includes('/who-we-serve/universities')) return 'Universities';
+    if (pathname?.includes('/who-we-serve/nonprofits')) return 'Nonprofits';
+    if (pathname?.includes('/who-we-serve/chains-franchises')) return 'Chains & Franchises';
+    if (pathname?.includes('/who-we-serve/retailers')) return 'Retailers';
+    if (pathname?.includes('/who-we-serve/dtc-brands')) return 'DTC Brands';
     return null;
   };
 
@@ -179,11 +181,13 @@ export function Navigation() {
               <div className="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                 <div className={cn(
                   "min-w-[200px] flex flex-col p-1 rounded-lg shadow-lg border",
-                  "bg-white/80 backdrop-blur-xl border-white/50"
+                  "bg-white border-gray-200"
                 )}>
-                  <Link href="/who-we-serve/university" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'University' && "bg-black/5 font-semibold")}>University</Link>
-                  <Link href="/who-we-serve/nonprofit" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Nonprofit' && "bg-black/5 font-semibold")}>Nonprofit</Link>
-                  <Link href="/who-we-serve/subscription-business" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Subscription Business' && "bg-black/5 font-semibold")}>Subscription Business</Link>
+                  <Link href="/who-we-serve/universities" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Universities' && "bg-black/5 font-semibold")}>Universities</Link>
+                  <Link href="/who-we-serve/nonprofits" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Nonprofits' && "bg-black/5 font-semibold")}>Nonprofits</Link>
+                  <Link href="/who-we-serve/chains-franchises" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Chains & Franchises' && "bg-black/5 font-semibold")}>Chains & Franchises</Link>
+                  <Link href="/who-we-serve/retailers" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Retailers' && "bg-black/5 font-semibold")}>Retailers</Link>
+                  <Link href="/who-we-serve/dtc-brands" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'DTC Brands' && "bg-black/5 font-semibold")}>DTC Brands</Link>
                 </div>
               </div>
             </div>
@@ -199,18 +203,31 @@ export function Navigation() {
               Why FC
             </Link>
 
-            {/* Pilot */}
+            {/* Pricing */}
             <Link
-              href="/start-a-pilot"
+              href="/pricing"
               className={cn(
                 "text-sm font-medium transition-colors whitespace-nowrap",
                 isGlassMode ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-black"
               )}
             >
-              Pilot
+              Pricing
             </Link>
 
-            {/* Trust */}
+            {/* Start a Pilot */}
+            <a
+              href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(
+                "text-sm font-medium transition-colors whitespace-nowrap",
+                isGlassMode ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-black"
+              )}
+            >
+              Start a Pilot
+            </a>
+
+            {/* Trust Center */}
             <Link
               href="/trust"
               className={cn(
@@ -218,18 +235,7 @@ export function Navigation() {
                 isGlassMode ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-black"
               )}
             >
-              Trust
-            </Link>
-
-            {/* Contact */}
-            <Link
-              href="/contact"
-              className={cn(
-                "text-sm font-medium transition-colors whitespace-nowrap",
-                isGlassMode ? "text-white/90 hover:text-white" : "text-gray-700 hover:text-black"
-              )}
-            >
-              Contact
+              Trust Center
             </Link>
 
           </div>
@@ -331,9 +337,11 @@ export function Navigation() {
                 </button>
                 {isWhoWeServeOpen && (
                   <div className="mt-3 ml-4 flex flex-col space-y-3 border-l-2 border-gray-100 pl-4">
-                    <Link href="/who-we-serve/university" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">University</Link>
-                    <Link href="/who-we-serve/nonprofit" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Nonprofit</Link>
-                    <Link href="/who-we-serve/subscription-business" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Subscription Business</Link>
+                    <Link href="/who-we-serve/universities" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Universities</Link>
+                    <Link href="/who-we-serve/nonprofits" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Nonprofits</Link>
+                    <Link href="/who-we-serve/chains-franchises" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Chains & Franchises</Link>
+                    <Link href="/who-we-serve/retailers" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Retailers</Link>
+                    <Link href="/who-we-serve/dtc-brands" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">DTC Brands</Link>
                   </div>
                 )}
               </div>
@@ -342,16 +350,16 @@ export function Navigation() {
                 Why FC
               </Link>
 
-              <Link href="/start-a-pilot" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
-                Pilot
+              <Link href="/pricing" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
+                Pricing
               </Link>
+
+              <a href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
+                Start a Pilot
+              </a>
 
               <Link href="/trust" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
-                Trust
-              </Link>
-
-              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
-                Contact
+                Trust Center
               </Link>
             </div>
             <div className="mt-auto pt-6">

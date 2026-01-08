@@ -20,6 +20,8 @@ interface HeroSectionProps {
   buttonClassName?: string
   maxWidth?: string
   veilOpacity?: string
+  bottomFadeColor?: string
+  bottomFadeHeight?: string
   fontFamily?: string
   fontWeight?: number
   children?: React.ReactNode
@@ -42,6 +44,8 @@ export function HeroSection({
   buttonClassName = "",
   maxWidth = "max-w-6xl",
   veilOpacity = "bg-white/20 dark:bg-black/25",
+  bottomFadeColor = "transparent",
+  bottomFadeHeight = "h-28 sm:h-36",
   fontFamily = "Satoshi, sans-serif",
   fontWeight = 500,
   children,
@@ -99,6 +103,10 @@ export function HeroSection({
           </>
         )}
       </div>
+      <div
+        className={`absolute bottom-0 left-0 right-0 pointer-events-none ${bottomFadeHeight}`}
+        style={{ background: `linear-gradient(to bottom, rgba(0,0,0,0), ${bottomFadeColor})` }}
+      />
       
       <div className={`relative z-10 ${maxWidth} mx-auto px-6 w-full`}>
         {children ? (

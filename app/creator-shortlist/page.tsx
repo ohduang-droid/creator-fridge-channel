@@ -67,7 +67,7 @@ export default async function CreatorShortlistPage({
               {/* CTA at bottom of top hero-like area */}
               <div className="pt-4 flex items-center justify-center">
               <Link
-                href="https://calendly.com/billy-fridgechannels/30min"
+                href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting"
                 target="_blank"
                 rel="noreferrer"
               >

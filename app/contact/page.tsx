@@ -1,25 +1,27 @@
 import Link from "next/link"
 import { Navigation } from "@/components/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#F7F7F4]">
+    <div className="min-h-screen bg-[#F7F7F4] flex flex-col">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-32 pb-10">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold text-balance">Contact Us</h1>
-          <p className="text-xl md:text-2xl text-muted-foreground">
-            Get in touch with our team
-          </p>
-        </div>
-      </section>
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 pt-32 pb-10">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-balance">Contact Us</h1>
+            <p className="text-xl md:text-2xl text-muted-foreground">
+              Get in touch with our team
+            </p>
+          </div>
+        </section>
 
-      {/* Main Content */}
-      <section className="container mx-auto px-4 pb-20">
-        <div className="max-w-4xl mx-auto space-y-12">
+        {/* Main Content */}
+        <section className="container mx-auto px-4 pb-20">
+          <div className="max-w-4xl mx-auto space-y-12">
           <div className="grid gap-6 md:grid-cols-2">
             <Card>
               <CardHeader>
@@ -47,7 +49,7 @@ export default function ContactPage() {
               </CardHeader>
               <CardContent>
                 <a 
-                  href="https://calendly.com/billy-fridgechannels/30min" 
+                  href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" 
                   target="_blank"
                   rel="noreferrer"
                   className="text-primary hover:underline"
@@ -76,28 +78,13 @@ export default function ContactPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-muted/30 border-t border-border">
-        <div className="container mx-auto px-4 py-12">
-          <div className="max-w-5xl mx-auto space-y-6">
-            <p className="text-center text-muted-foreground">
-              © Fridge Channel 
-            </p>
-            <nav className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <Link href="/" className="text-sm hover:underline text-muted-foreground">
-                Home
-              </Link>
-              <Link href="/about-us" className="text-sm hover:underline text-muted-foreground">
-                Our Story
-              </Link>
-            </nav>
           </div>
-        </div>
-      </footer>
+        </section>
+      </main>
+
+      <SiteFooter />
     </div>
   )
 }
+
 

@@ -15,6 +15,8 @@ import { SectionReveal } from "@/components/ui/section-reveal"
 import { SectionWrapper } from "@/components/ui/section-wrapper"
 import { WaterRippleEffect } from "@/components/ui/water-ripple-effect"
 import { Timeline } from "@/components/ui/timeline"
+import { ImageMask } from "@/components/ui/image-mask"
+import { SiteFooter } from "@/components/site-footer"
 import { useScroll, useTransform, motion } from "framer-motion"
 import { useRef } from "react"
 
@@ -35,9 +37,10 @@ export default function HomePage() {
   const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <div className="min-h-screen bg-[#F7F3ED] relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#F7F3ED] relative overflow-x-hidden flex flex-col">
       <Navigation />
 
+      <main className="flex-1">
       {/* Hero Section - Microsoft AI style */}
       <section
         ref={heroRef}
@@ -119,14 +122,14 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
               className="flex items-center justify-center gap-4 md:gap-6 pt-4"
             >
-              <Link href="https://calendly.com/billy-fridgechannels/30min" target="_blank">
+              <Link href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank">
                 <ShimmerButton
                   className="shadow-2xl transition-transform duration-300 hover:scale-110 w-[220px]"
                   background="rgba(0, 0, 0, 1)"
                   shimmerColor="#ffffff"
                 >
                   <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
-                    Run a Pilot
+                    Start a Pilot
                   </span>
                 </ShimmerButton>
               </Link>
@@ -167,14 +170,14 @@ export default function HomePage() {
                   {
                     title: "Universities",
                     description: "Increase renewals. Grow monthly giving. Reactivate lapsed donors.",
-                    link: "/who-we-serve/university",
+                    link: "/who-we-serve/universities",
                     linkText: "Learn more →",
                     imageUrl: "/University.png",
                   },
                   {
                     title: "Nonprofits",
                     description: "Grow recurring donors. Improve retention beyond campaigns.",
-                    link: "/who-we-serve/nonprofit",
+                    link: "/who-we-serve/nonprofits",
                     linkText: "Learn more →",
                     imageUrl: "/nonprofit.png",
                   },
@@ -329,33 +332,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <SectionWrapper enableFadeTransition={true}>
-        <SectionReveal delay={0.1} direction="up" distance={40}>
-          <footer className="bg-muted/30 border-t border-border">
-            <div className="container mx-auto px-4 py-12">
-              <div className="max-w-5xl mx-auto space-y-6">
-                <nav className="flex flex-wrap justify-center gap-2 text-sm text-muted-foreground">
-                  <Link href="/" className="hover:underline">
-                    Home
-                  </Link>
-                  <span>·</span>
-                  <Link href="/trust" className="hover:underline">
-                    Trust Center
-                  </Link>
-                  <span>·</span>
-                  <Link href="/contact" className="hover:underline">
-                    Contact
-                  </Link>
-                </nav>
-                <p className="text-center text-muted-foreground">
-                  © Fridge Channel
-                </p>
-              </div>
-            </div>
-          </footer>
-        </SectionReveal>
-      </SectionWrapper>
+      {/* Image Mask Gallery Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="max-w-7xl mx-auto">
+          <ImageMask />
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section 
+        className="w-full py-12 relative"
+      >
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex justify-center">
+            <Link href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank">
+              <ShimmerButton
+                className="shadow-2xl transition-transform duration-300 hover:scale-110 w-[220px]"
+                background="rgba(0, 0, 0, 1)"
+                shimmerColor="#ffffff"
+              >
+                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
+                  Start a Pilot
+                </span>
+              </ShimmerButton>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      </main>
+
+      <SiteFooter />
     </div>
   )
 }

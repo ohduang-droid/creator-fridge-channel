@@ -417,7 +417,7 @@ export default function SubscriptionBusinessPage() {
                         {/* CTA Button */}
                         <div className="flex flex-col items-center gap-4 pt-4">
                             <Link
-                                href="https://calendly.com/billy-fridgechannels/30min"
+                                href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting"
                                 target="_blank"
                                 rel="noreferrer"
                             >

@@ -49,7 +49,7 @@ export const HeroSection = () => {
           <div className="flex flex-col items-center gap-4" style={{ marginTop: '40px' }}>
             <div className="flex items-center justify-center gap-4">
               <Link
-                href="https://calendly.com/billy-fridgechannels/30min"
+                href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting"
                 target="_blank"
                 rel="noreferrer"
               >
