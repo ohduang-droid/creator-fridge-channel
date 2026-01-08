@@ -184,10 +184,14 @@ export function Navigation() {
                   "bg-white border-gray-200"
                 )}>
                   <Link href="/who-we-serve/universities" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Universities' && "bg-black/5 font-semibold")}>Universities</Link>
+                  {/*
                   <Link href="/who-we-serve/nonprofits" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Nonprofits' && "bg-black/5 font-semibold")}>Nonprofits</Link>
                   <Link href="/who-we-serve/chains-franchises" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Chains & Franchises' && "bg-black/5 font-semibold")}>Chains & Franchises</Link>
+                  */}
                   <Link href="/who-we-serve/retailers" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'Retailers' && "bg-black/5 font-semibold")}>Retailers</Link>
+                  {/*
                   <Link href="/who-we-serve/dtc-brands" className={cn("px-4 py-2 text-sm text-gray-700 hover:bg-black/5 rounded-md transition-colors", currentWhoWeServe === 'DTC Brands' && "bg-black/5 font-semibold")}>DTC Brands</Link>
+                  */}
                 </div>
               </div>
             </div>
@@ -338,10 +342,14 @@ export function Navigation() {
                 {isWhoWeServeOpen && (
                   <div className="mt-3 ml-4 flex flex-col space-y-3 border-l-2 border-gray-100 pl-4">
                     <Link href="/who-we-serve/universities" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Universities</Link>
+                    {/*
                     <Link href="/who-we-serve/nonprofits" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Nonprofits</Link>
                     <Link href="/who-we-serve/chains-franchises" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Chains & Franchises</Link>
+                    */}
                     <Link href="/who-we-serve/retailers" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">Retailers</Link>
+                    {/*
                     <Link href="/who-we-serve/dtc-brands" onClick={() => setIsMobileMenuOpen(false)} className="text-gray-600 hover:text-black">DTC Brands</Link>
+                    */}
                   </div>
                 )}
               </div>

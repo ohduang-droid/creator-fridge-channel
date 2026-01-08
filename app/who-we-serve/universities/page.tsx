@@ -85,7 +85,7 @@ export default function UniversitiesPage() {
                             </p>
                         </HeroTextReveal>
                         <div className="flex items-center justify-center gap-4 mt-10">
-                            <Link href="#pricing">
+                            <Link href="#most-popular-plans">
                                 <ShimmerButton
                                     className="shadow-2xl transition-transform duration-300 hover:scale-110 w-[272px]"
                                     background="rgba(0, 0, 0, 1)"
@@ -166,7 +166,9 @@ export default function UniversitiesPage() {
             </SectionTransition>
 
             {/* Most Popular Plans Section */}
-            <MostPopularPlansSection />
+            <section id="most-popular-plans" className="scroll-mt-28">
+                <MostPopularPlansSection />
+            </section>
 
             {/* How a Pilot Works Section - Flow Style */}
             <SectionTransition intensity="low" enableFade={true} enableMovement={false}>
@@ -184,21 +186,23 @@ export default function UniversitiesPage() {
             </SectionTransition>
 
             {/* Final CTA Section */}
-            <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
-                <div className="flex justify-center pt-0 pb-20">
-                    <Link href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank">
-                        <ShimmerButton
-                            className="shadow-2xl transition-transform duration-300 hover:scale-110"
-                            background="rgba(0, 0, 0, 1)"
-                            shimmerColor="#ffffff"
-                        >
-                            <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
-                                Request a mock
-                            </span>
-                        </ShimmerButton>
-                    </Link>
+            <section className="w-full bg-[#4C8666] relative z-10">
+                <div className="container mx-auto px-4 py-20">
+                    <div className="flex justify-center items-center">
+                        <Link href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank" rel="noopener noreferrer">
+                            <ShimmerButton
+                                className="shadow-2xl transition-transform duration-300 hover:scale-110"
+                                background="rgba(0, 0, 0, 1)"
+                                shimmerColor="#ffffff"
+                            >
+                                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-lg">
+                                    Request a mock
+                                </span>
+                            </ShimmerButton>
+                        </Link>
+                    </div>
                 </div>
-            </SectionTransition>
+            </section>
 
             </main>
             <SiteFooter />

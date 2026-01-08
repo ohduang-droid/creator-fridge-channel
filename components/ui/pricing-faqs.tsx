@@ -93,7 +93,6 @@ export default function PricingFAQs() {
                 <div className="flex flex-col items-center">
                     <div className="text-center mb-12">
                         <h2 className="text-foreground text-4xl font-semibold">FAQ</h2>
-                        <p className="text-muted-foreground mt-4 text-balance text-lg">Common questions about pricing and features</p>
                     </div>
 
                     <div className="w-full max-w-3xl">

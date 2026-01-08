@@ -102,7 +102,7 @@ export const WhoWeServeCards: React.FC<WhoWeServeCardsProps> = ({ cards }) => {
                             {card.description}
                           </p>
                           <div className="text-xs flex items-center text-left leading-none absolute bottom-0 left-0 gap-2 text-muted-foreground">
-                            <span>{card.linkText}</span>
+                            <span className="hidden">{card.linkText}</span>
                           </div>
                         </div>
                       </div>
