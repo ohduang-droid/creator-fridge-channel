@@ -3,6 +3,7 @@
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { SectionWrapper } from "@/components/ui/section-wrapper";
 import { RippleButton } from "@/components/ui/multi-type-ripple-buttons";
+import { AnimatedTitle } from "@/components/ui/animated-title";
 
 // Using mockData; dev team will replace with real API hook useFetchPlans()
 interface PlanData {
@@ -167,7 +168,7 @@ export function MostPopularPlansSection() {
           {/* Section Header */}
           <SectionReveal delay={0} direction="up" distance={40}>
             <div className="text-center space-y-4">
-              <h2 className="text-3xl md:text-5xl font-bold text-balance">Most Popular Plans</h2>
+              <AnimatedTitle className="text-3xl md:text-5xl font-bold text-balance">Most Popular Plans</AnimatedTitle>
               <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
                 Choose a plan. We'll send a mock you can forward internally
               </p>

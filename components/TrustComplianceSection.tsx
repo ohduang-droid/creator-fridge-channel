@@ -9,6 +9,7 @@ import {
   MotionAccordionTrigger,
 } from "@/components/ui/motion-accordion";
 import { ChevronDown } from "lucide-react";
+import { AnimatedTitle } from "@/components/ui/animated-title";
 
 // Using mockData; dev team will replace with real API hook useFetchTrustCompliance()
 interface TrustSummaryItem {
@@ -94,7 +95,7 @@ export function TrustComplianceSection() {
     <section id="trust-compliance" className="container mx-auto px-4 pt-20 pb-0">
       <div className="max-w-4xl mx-auto space-y-20">
         <div className="text-center space-y-3 mb-10">
-          <h2 className="text-3xl md:text-5xl font-bold text-balance">Trust &amp; Compliance</h2>
+          <AnimatedTitle className="text-3xl md:text-5xl font-bold text-balance">Trust &amp; Compliance</AnimatedTitle>
         </div>
 
         {/* Accordion-style summary (keep all original text, mimic interaction) */}

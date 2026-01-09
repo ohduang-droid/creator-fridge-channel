@@ -197,6 +197,7 @@ export function Navigation() {
             </div>
 
             {/* Why FC */}
+            {/*
             <Link
               href="/why-us"
               className={cn(
@@ -206,8 +207,10 @@ export function Navigation() {
             >
               Why FC
             </Link>
+            */}
 
             {/* Pricing */}
+            {/*
             <Link
               href="/pricing"
               className={cn(
@@ -217,6 +220,7 @@ export function Navigation() {
             >
               Pricing
             </Link>
+            */}
 
             {/* Start a Pilot */}
             <a
@@ -354,13 +358,17 @@ export function Navigation() {
                 )}
               </div>
 
+              {/*
               <Link href="/why-us" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
                 Why FC
               </Link>
+              */}
 
+              {/*
               <Link href="/pricing" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
                 Pricing
               </Link>
+              */}
 
               <a href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)} className="text-base font-semibold text-gray-800">
                 Start a Pilot
