@@ -107,7 +107,8 @@ export default function ChainsFranchisesPage() {
                 </HeroSection>
 
                 {/* How it Works Section */}
-                <SectionTransition intensity="medium" enableFade={true} enableMovement={true}>
+                {/* How it Works Section */}
+                <SectionTransition intensity="medium" enableFade={true} enableMovement={true} fadeRange={[0, 0.1, 0.9, 1]}>
                     <section id="how-it-works">
                         <div className="w-full bg-muted/30 dark:bg-neutral-950">
                             <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10 pt-20">
@@ -245,7 +246,7 @@ export default function ChainsFranchisesPage() {
                             steps={pilotSteps}
                             title="How a Pilot Works"
                             accentColor="#FF6C02"
-                            backgroundColor="#FFFFFF"
+                            backgroundColor="#F7F7F4"
                         />
                     </section>
                 </SectionTransition>

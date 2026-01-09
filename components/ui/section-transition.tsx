@@ -21,6 +21,11 @@ interface SectionTransitionProps {
    * Enable vertical movement during scroll
    */
   enableMovement?: boolean;
+  /**
+   * Custom range for opacity fade effect
+   * Default: [0, 0.4, 0.6, 1]
+   */
+  fadeRange?: number[];
 }
 
 /**
@@ -40,6 +45,7 @@ export function SectionTransition({
   intensity = "medium",
   enableFade = true,
   enableMovement = true,
+  fadeRange = [0, 0.4, 0.6, 1],
 }: SectionTransitionProps) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -57,7 +63,7 @@ export function SectionTransition({
   // Opacity: Very pronounced fade in/out - Microsoft AI style
   // Clear and visible fade transition
   const opacity = enableFade
-    ? useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0, 1, 1, 0])
+    ? useTransform(scrollYProgress, fadeRange, [0, 1, 1, 0])
     : 1;
 
   // Vertical movement: Very pronounced slide effect - Microsoft AI style
