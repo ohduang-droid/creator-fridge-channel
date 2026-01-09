@@ -93,7 +93,7 @@ function PlanCard({ plan }: PlanCardProps) {
   `;
   const buttonClasses = `
     mt-auto w-full py-2.5 rounded-xl font-semibold text-[14px] transition font-sans
-    bg-[#469A74]/85 hover:bg-[#3E8A68]/85 text-white backdrop-blur-md border border-white/20 shadow-sm
+    bg-primary/85 hover:bg-primary/90 text-primary-foreground backdrop-blur-md border border-white/20 shadow-sm
   `;
 
   return (
@@ -136,7 +136,7 @@ function PlanCard({ plan }: PlanCardProps) {
             {plan.observability.map((item, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <li key={index} className="flex items-start gap-2">
-                <span className="mt-0.5 text-[#469A74]" aria-hidden="true">
+                <span className="mt-0.5 text-primary" aria-hidden="true">
                   ✓
                 </span>
                 <span className="text-foreground/70 leading-relaxed">{item}</span>

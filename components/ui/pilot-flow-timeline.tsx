@@ -14,6 +14,8 @@ interface PilotStep {
 interface PilotFlowTimelineProps {
   steps: PilotStep[];
   title?: string;
+  accentColor?: string;
+  backgroundColor?: string;
 }
 
 /* =========================
@@ -104,6 +106,7 @@ function PilotStepItem({
   point,
   scrollYProgress,
   isLeftAligned,
+  accentColor,
 }: {
   step: PilotStep;
   index: number;
@@ -111,6 +114,7 @@ function PilotStepItem({
   point: Point;
   scrollYProgress: MotionValue<number>;
   isLeftAligned: boolean;
+  accentColor: string;
 }) {
   const stepTarget = index / (totalSteps - 1 || 1);
 
@@ -147,10 +151,10 @@ function PilotStepItem({
       <motion.div style={{ opacity, y, scale, originX: isLeftAligned ? 1 : 0 }} className="flex flex-col gap-1">
         <div
           className={clsx(
-            "absolute top-1/2 w-4 h-4 bg-white border-[3px] border-[#469A74] rounded-full",
+            "absolute top-1/2 w-4 h-4 bg-white border-[3px] rounded-full",
             isLeftAligned ? "-right-[2rem] translate-x-1/2" : "-left-[2rem] -translate-x-1/2"
           )}
-          style={{ marginTop: "-8px" }}
+          style={{ marginTop: "-8px", borderColor: accentColor }}
         />
         <h3 className="text-[20px] font-semibold text-[#1a1a1a]">
           {step.title}
@@ -171,6 +175,8 @@ function PilotStepItem({
 export function PilotFlowTimeline({
   steps,
   title = "How a Pilot Works",
+  accentColor = "#27569E",
+  backgroundColor = "#FF6C02",
 }: PilotFlowTimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const stepPoints = STEP_COORDS_DESKTOP.slice(0, steps.length);
@@ -219,9 +225,23 @@ export function PilotFlowTimeline({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const toRgba = (hex: string, alpha: number) => {
+    // Expect #RRGGBB (fallback: return hex)
+    const normalized = hex.replace("#", "");
+    if (normalized.length !== 6) return hex;
+    const r = Number.parseInt(normalized.slice(0, 2), 16);
+    const g = Number.parseInt(normalized.slice(2, 4), 16);
+    const b = Number.parseInt(normalized.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+
   return (
     // 300vh height ensures the user has to scroll "through" the animation
-    <div ref={containerRef} className="relative h-[300vh] w-full bg-[#F7F7F4]">
+    <div
+      ref={containerRef}
+      className="relative h-[300vh] w-full"
+      style={{ backgroundColor }}
+    >
 
       {/* Sticky wrapper to pin the content while scrolling through the 300vh */}
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start overflow-hidden pt-24 md:pt-32">
@@ -260,8 +280,8 @@ export function PilotFlowTimeline({
               >
                 <defs>
                   <linearGradient id="line-gradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#469A74" />
-                    <stop offset="100%" stopColor="#469A74" />
+                    <stop offset="0%" stopColor={accentColor} />
+                    <stop offset="100%" stopColor={accentColor} />
                   </linearGradient>
                   <filter id="glow">
                     <feGaussianBlur stdDeviation="4" result="blur" />
@@ -299,6 +319,7 @@ export function PilotFlowTimeline({
                     point={pt}
                     scrollYProgress={scrollYProgress}
                     isLeftAligned={isLeftAligned}
+                    accentColor={accentColor}
                   />
                 );
               })}
@@ -308,8 +329,15 @@ export function PilotFlowTimeline({
           {/* Mobile Layout (unchanged, flows naturally) */}
           <div className="md:hidden px-6 pb-16 space-y-12 w-full max-w-md">
             {steps.map((step, index) => (
-              <div key={step.id} className="relative pl-6 border-l-2 border-[#469A74]/30">
-                <div className="absolute -left-[5px] top-0 w-2 h-2 rounded-full bg-[#469A74]" />
+              <div
+                key={step.id}
+                className="relative pl-6 border-l-2"
+                style={{ borderColor: toRgba(accentColor, 0.3) }}
+              >
+                <div
+                  className="absolute -left-[5px] top-0 w-2 h-2 rounded-full"
+                  style={{ backgroundColor: accentColor }}
+                />
                 <h3 className="text-[18px] font-semibold text-[#1a1a1a]">
                   {step.title}
                 </h3>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Navigation } from "@/components/navigation"
@@ -47,18 +48,26 @@ export default function UniversitiesPage() {
 
 
     return (
-        <div className="min-h-screen bg-[#F7F7F4] flex flex-col">
+        <div
+            className="min-h-screen bg-[#F7F7F4] flex flex-col"
+            style={{
+                ["--primary" as any]: "#27569E",
+                ["--ring" as any]: "#27569E",
+            }}
+        >
             <Navigation />
 
             <main className="flex-1">
                 {/* Hero Section */}
                 <HeroSection
-                    colors={["#1a4d2e", "#2d6a4f", "#40916c", "#52b788", "#74c69d", "#95d5b2"]}
+                    // Blue + white palette (keep enough depth for white text contrast)
+                    colors={["#0B1E3A", "#163B74", "#27569E", "#3A7BD5", "#EAF2FF", "#FFFFFF"]}
                     distortion={0.8}
                     swirl={0.6}
                     speed={0.42}
                     offsetX={0.08}
-                    veilOpacity="bg-transparent"
+                    // Slight dark veil so white text stays readable when white areas appear
+                    veilOpacity="bg-black/20"
                     bottomFadeColor="#F7F7F4"
                     maxWidth="max-w-7xl"
                     className="pt-16 min-h-[700px]"
@@ -118,6 +127,26 @@ export default function UniversitiesPage() {
                                                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
                                                     <strong className="font-semibold text-foreground">At-home touchpoint</strong> lives where daily routines happen.
                                                 </p>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                                                    <div className="relative w-full overflow-hidden rounded-lg">
+                                                        <Image
+                                                            src="/step1-1.png"
+                                                            alt="How it works step 1 - image 1"
+                                                            width={1200}
+                                                            height={900}
+                                                            className="w-full h-auto"
+                                                        />
+                                                    </div>
+                                                    <div className="relative w-full overflow-hidden rounded-lg">
+                                                        <Image
+                                                            src="/step1-2.png"
+                                                            alt="How it works step 1 - image 2"
+                                                            width={1200}
+                                                            height={900}
+                                                            className="w-full h-auto"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
                                         ),
                                     },
@@ -131,6 +160,15 @@ export default function UniversitiesPage() {
                                                 <blockquote className="border-l-4 border-primary pl-4 my-4 italic text-lg text-muted-foreground">
                                                     <strong className="font-semibold text-foreground">You control the destination + CTA.</strong>
                                                 </blockquote>
+                                                <div className="relative w-full md:w-1/2 overflow-hidden rounded-lg mt-6">
+                                                    <Image
+                                                        src="/u2.png"
+                                                        alt="How it works step 2 illustration"
+                                                        width={1200}
+                                                        height={900}
+                                                        className="w-full h-auto"
+                                                    />
+                                                </div>
                                             </div>
                                         ),
                                     },
@@ -144,6 +182,15 @@ export default function UniversitiesPage() {
                                                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
                                                     <strong className="font-semibold text-foreground">Donate monthly / Renew / RSVP</strong>.
                                                 </p>
+                                                <div className="relative w-full md:w-1/2 overflow-hidden rounded-lg mt-6">
+                                                    <Image
+                                                        src="/u3.png"
+                                                        alt="How it works step 3 illustration"
+                                                        width={1200}
+                                                        height={900}
+                                                        className="w-full h-auto"
+                                                    />
+                                                </div>
                                             </div>
                                         ),
                                     },
@@ -157,6 +204,15 @@ export default function UniversitiesPage() {
                                                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
                                                     <strong className="font-semibold text-foreground">No PII. No person-level tracking.</strong>
                                                 </p>
+                                                <div className="relative w-full md:w-1/2 overflow-hidden rounded-lg mt-6">
+                                                    <Image
+                                                        src="/u4.png"
+                                                        alt="How it works step 4 illustration"
+                                                        width={1200}
+                                                        height={900}
+                                                        className="w-full h-auto"
+                                                    />
+                                                </div>
                                             </div>
                                         ),
                                     },
@@ -177,6 +233,7 @@ export default function UniversitiesPage() {
                         <PilotFlowTimeline
                             steps={pilotSteps}
                             title="How a Pilot Works"
+                            backgroundColor="#FFFFFF"
                         />
                     </section>
                 </SectionTransition>
@@ -187,7 +244,7 @@ export default function UniversitiesPage() {
                 </SectionTransition>
 
                 {/* Final CTA Section */}
-                <section className="w-full bg-[#4C8666] relative z-10">
+                <section className="w-full bg-[#27569E] relative z-10">
                     <div className="container mx-auto px-4 py-20">
                         <div className="flex justify-center items-center">
                             <Link href="https://calendly.com/billy-fridgechannels/fridge-channel-pilot-meeting" target="_blank" rel="noopener noreferrer">

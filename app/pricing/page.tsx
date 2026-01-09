@@ -297,7 +297,6 @@ export default function PricingPage() {
                       <strong className="font-semibold text-foreground">Important:</strong> Category Exclusion affects only{" "}
                       <strong className="font-semibold text-foreground"> in-app recommendations</strong>.
                     </p>
-                    <p>It does not prevent households from having multiple brands’ touchpoints.</p>
                   </div>
                 </div>
 

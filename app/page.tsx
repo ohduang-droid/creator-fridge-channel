@@ -184,7 +184,7 @@ export default function HomePage() {
                     imageUrl: "/nonprofit.png",
                   },
                   {
-                    title: "Chains & Franchises",
+                    title: "Franchises & Chains",
                     description: "Bring people back to locations. Activate loyalty. Drive redemption.",
                     link: "/who-we-serve/chains-franchises",
                     linkText: "Learn more →",
