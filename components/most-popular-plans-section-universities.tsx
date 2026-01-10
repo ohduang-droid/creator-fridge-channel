@@ -141,6 +141,9 @@ function PlanCardContent({ plan, index }: PlanCardContentProps) {
     const cardRef = useRef<HTMLDivElement>(null);
     const [isHovered, setIsHovered] = useState(false);
     const [rotation, setRotation] = useState({ x: 0, y: 0 });
+    
+    const planLabels = ["Plan A -", "Plan B -", "Plan C -"];
+    const displayTitle = `${planLabels[index]} ${plan.title}`;
 
     // Handle mouse movement for 3D effect
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -200,7 +203,7 @@ function PlanCardContent({ plan, index }: PlanCardContentProps) {
                         textShadow: isHovered && isActive ? "0 2px 4px rgba(0,0,0,0.1)" : "none",
                     }}
                 >
-                    {plan.title}
+                    {displayTitle}
                 </motion.h3>
 
                 {/* Content */}
@@ -342,14 +345,18 @@ export function MostPopularPlansSectionUniversities() {
                             </h3>
                             <div className="flex flex-col md:flex-row items-start md:items-center justify-evenly gap-6 md:gap-12">
                                 <div className="flex flex-col space-y-2 md:space-y-4 w-full md:w-auto">
-                                    {plans.map((plan, index) => (
-                                        <TextStaggerHover
-                                            key={plan.id}
-                                            index={index}
-                                            className="cursor-pointer text-3xl md:text-4xl font-bold uppercase tracking-tighter"
-                                            text={plan.title}
-                                        />
-                                    ))}
+                                    {plans.map((plan, index) => {
+                                        const planLabels = ["Plan A -", "Plan B -", "Plan C -"];
+                                        const displayTitle = `${planLabels[index]} ${plan.title}`;
+                                        return (
+                                            <TextStaggerHover
+                                                key={plan.id}
+                                                index={index}
+                                                className="cursor-pointer text-3xl md:text-4xl font-bold uppercase tracking-tighter"
+                                                text={displayTitle}
+                                            />
+                                        );
+                                    })}
                                 </div>
                                 <HoverSliderImageWrap className="w-full max-w-2xl min-h-[580px]">
                                     {plans.map((plan, index) => (
