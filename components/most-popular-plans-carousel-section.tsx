@@ -29,17 +29,26 @@ export type MostPopularPlan = {
 const ACTIVE_CARD_WIDTH = "w-[450px] sm:w-[510px] lg:w-[630px]";
 const INACTIVE_CARD_WIDTH = "w-[520px] sm:w-[600px] lg:w-[680px]";
 
+// Gradient configurations for different themes
+export const CARD_GRADIENTS = {
+  retailers: "linear-gradient(135deg, #9BC7AD 0%, #83B79F 40%, #5E9A7E 100%)",
+  chains: "linear-gradient(135deg, #E8CDB5 0%, #D9AD8E 40%, #C49A7A 100%)",
+  universities: "linear-gradient(135deg, #7A8FA8 0%, #5E718F 40%, #4A5B74 100%)",
+};
+
 function PlanCard({
   plan,
   isActive,
   activeCardColor = "#83B79F",
+  activeCardGradient,
 }: {
   plan: MostPopularPlan;
   isActive: boolean;
   activeCardColor?: string;
+  activeCardGradient?: string;
 }) {
   const cardClasses = cn(
-    "rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] text-black overflow-hidden flex flex-col",
+    "rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] text-black overflow-hidden flex flex-col relative",
     "transition-[filter,opacity,transform] duration-500",
     isActive
       ? "rounded-t-2xl rounded-b-none shadow-none min-h-[500px] sm:min-h-[540px] lg:min-h-[580px]"
@@ -48,11 +57,27 @@ function PlanCard({
 
   const observabilityLabel = plan.observabilityLabel ?? "Observability (3-line standard):";
 
+  // Use gradient if provided, otherwise fallback to solid color
+  const cardBackground = isActive
+    ? activeCardGradient || activeCardColor
+    : undefined;
+
   return (
     <div
       className={cardClasses}
-      style={isActive ? { backgroundColor: activeCardColor } : undefined}
+      style={isActive ? { background: cardBackground } : undefined}
     >
+      {/* Glassmorphism overlay for active cards */}
+      {isActive && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 30%, transparent 60%)",
+            borderRadius: "inherit",
+          }}
+          aria-hidden="true"
+        />
+      )}
       <div className="px-6 pt-6">
         <div className="text-[26px] md:text-[30px] leading-[1.1] tracking-[-0.02em] font-light border-b border-black/15 pb-4">
           {plan.title}
@@ -154,9 +179,11 @@ function PlanCard({
 export function MostPopularPlansCarouselSection({
   plans,
   activeCardColor = "#83B79F",
+  activeCardGradient,
 }: {
   plans: MostPopularPlan[];
   activeCardColor?: string;
+  activeCardGradient?: string;
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -266,6 +293,7 @@ export function MostPopularPlansCarouselSection({
                                 plan={plan}
                                 isActive={isActive}
                                 activeCardColor={activeCardColor}
+                                activeCardGradient={activeCardGradient}
                               />
                             </div>
                           </motion.button>
@@ -278,10 +306,18 @@ export function MostPopularPlansCarouselSection({
                     <div
                       className={cn(
                         ACTIVE_CARD_WIDTH,
-                        "rounded-b-2xl shadow-[0_-18px_50px_rgba(0,0,0,0.22)] px-6 py-5"
+                        "rounded-b-2xl shadow-[0_-18px_50px_rgba(0,0,0,0.22)] px-6 py-5 relative overflow-hidden"
                       )}
-                      style={{ backgroundColor: activeCardColor }}
+                      style={{ background: activeCardGradient || activeCardColor }}
                     >
+                      {/* Bottom tray glassmorphism overlay */}
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background: "linear-gradient(0deg, rgba(255,255,255,0.12) 0%, transparent 100%)",
+                        }}
+                        aria-hidden="true"
+                      />
                       <div className="flex items-center justify-center">
                         <GlowButton
                           aria-label={plans[realPlanIndex]?.buttonText ?? "Book a Pilot Meeting"}

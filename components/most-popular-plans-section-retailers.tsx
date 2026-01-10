@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SectionReveal } from "@/components/ui/section-reveal";
 import { SectionWrapper } from "@/components/ui/section-wrapper";
 import { AnimatedTitle } from "@/components/ui/animated-title";
@@ -148,22 +148,37 @@ interface PlanCardProps {
 const ACTIVE_CARD_WIDTH = "w-[450px] sm:w-[510px] lg:w-[630px]";
 const INACTIVE_CARD_WIDTH = "w-[520px] sm:w-[600px] lg:w-[680px]";
 
+// Retailers gradient
+const RETAILERS_GRADIENT = "linear-gradient(135deg, #9BC7AD 0%, #83B79F 40%, #5E9A7E 100%)";
+
 function PlanCard({ plan, isActive }: PlanCardProps) {
   const cardClasses = cn(
     // Base (Trawelt-like) card
-    "rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] text-black overflow-hidden flex flex-col",
-    // Background: active card matches trays; inactive stays light
-    isActive ? "bg-[#83B79F]" : "bg-[#F7F2EA]",
+    "rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.35)] text-black overflow-hidden flex flex-col relative",
     // Smooth state transitions
     "transition-[filter,opacity,transform] duration-500",
     // When we attach the fixed bottom CTA tray, remove bottom rounding so it visually stacks.
     isActive && "rounded-t-2xl rounded-b-none shadow-none min-h-[500px] sm:min-h-[540px] lg:min-h-[580px]",
     // Inactive visual collapse
-    !isActive && "opacity-60 saturate-0 contrast-90 max-h-[460px] sm:max-h-[500px] lg:max-h-[540px]"
+    !isActive && "bg-[#F7F2EA] opacity-60 saturate-0 contrast-90 max-h-[460px] sm:max-h-[500px] lg:max-h-[540px]"
   );
 
   return (
-    <div className={cardClasses}>
+    <div
+      className={cardClasses}
+      style={isActive ? { background: RETAILERS_GRADIENT } : undefined}
+    >
+      {/* Glassmorphism overlay for active cards */}
+      {isActive && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 30%, transparent 60%)",
+            borderRadius: "inherit",
+          }}
+          aria-hidden="true"
+        />
+      )}
       <div className="px-6 pt-6">
         <div className="text-[26px] md:text-[30px] leading-[1.1] tracking-[-0.02em] font-light border-b border-black/15 pb-4">
           {plan.title}
@@ -272,6 +287,7 @@ function PlanCard({ plan, isActive }: PlanCardProps) {
 export function MostPopularPlansSectionRetailers() {
   const plans = retailerPlans;
   const [selectedIndex, setSelectedIndex] = useState(0);
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     loop: true,
@@ -280,7 +296,9 @@ export function MostPopularPlansSectionRetailers() {
   useEffect(() => {
     if (!emblaApi) return;
 
-    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap());
+    };
     onSelect();
     emblaApi.on("select", onSelect);
     return () => {
@@ -393,9 +411,18 @@ export function MostPopularPlansSectionRetailers() {
                       className={cn(
                         ACTIVE_CARD_WIDTH,
                         // Shadow moved to the TOP edge (upwards)
-                        "bg-[#83B79F] rounded-b-2xl shadow-[0_-18px_50px_rgba(0,0,0,0.22)] px-6 py-5"
+                        "rounded-b-2xl shadow-[0_-18px_50px_rgba(0,0,0,0.22)] px-6 py-5 relative overflow-hidden"
                       )}
+                      style={{ background: RETAILERS_GRADIENT }}
                     >
+                      {/* Bottom tray glassmorphism overlay */}
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background: "linear-gradient(0deg, rgba(255,255,255,0.12) 0%, transparent 100%)",
+                        }}
+                        aria-hidden="true"
+                      />
                       <div className="flex items-center justify-center">
                         <GlowButton
                           aria-label={plans[selectedIndex]?.buttonText ?? "Book a Pilot Meeting"}

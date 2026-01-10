@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { MostPopularPlansCarouselSection, type MostPopularPlan } from "@/components/most-popular-plans-carousel-section";
+import { MostPopularPlansCarouselSection, type MostPopularPlan, CARD_GRADIENTS } from "@/components/most-popular-plans-carousel-section";
 
 interface PlanData {
   id: string;
@@ -152,6 +152,5 @@ export function MostPopularPlansSectionChainsFranchises() {
     ],
   }));
 
-  return <MostPopularPlansCarouselSection plans={plans} activeCardColor="#D9AD8E" />;
+  return <MostPopularPlansCarouselSection plans={plans} activeCardColor="#D9AD8E" activeCardGradient={CARD_GRADIENTS.chains} />;
 }
-
